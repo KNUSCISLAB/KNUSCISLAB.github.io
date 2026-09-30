@@ -212,7 +212,7 @@
     if (p.jcr_top) tags.push('<span class="mt">JCR ' + esc(t('jcr_top', { p: p.jcr_top })) + '</span>');
     if (p.jcr_category) parts.unshift(esc(p.jcr_category) + (p.jcr_rank ? ' ' + esc(p.jcr_rank) : '') + (p.jcr_year ? ' (JCR ' + esc(p.jcr_year) + ')' : ''));
     if (p.metrics) parts.push(esc(p.metrics));
-    if (p.author_role && p.type !== 'under_review') parts.push(esc(t('role_' + p.author_role)));
+    if (p.author_role && p.type !== 'under_review') tags.push('<span class="mt' + (isCorr(p) ? ' corr' : '') + '">' + esc(t('role_' + p.author_role)) + '</span>');
     if (!tags.length && !parts.length) return '';
     return '<p class="metrics">' + (tags.length ? '<span class="mts">' + tags.join('') + '</span>' : '') + parts.join('<span aria-hidden="true"> · </span>') + '</p>';
   }
