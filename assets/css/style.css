@@ -112,8 +112,8 @@ button { font: inherit; }
 
 /* ---------- home hero ---------- */
 .hero { padding: 64px 0 0; }
-.hero h1 { font-size: clamp(2.1rem, 5vw, 3.7rem); line-height: 1.08; letter-spacing: -.025em; font-weight: 600; max-width: 20ch; margin-bottom: 20px; }
-html[lang="ko"] .hero h1 { max-width: 22ch; line-height: 1.2; }
+.hero h1 { font-size: clamp(2.1rem, 5vw, 3.7rem); line-height: 1.08; letter-spacing: -.025em; font-weight: 600; max-width: 30ch; margin-bottom: 20px; text-wrap: balance; }
+html[lang="ko"] .hero h1 { max-width: 26ch; line-height: 1.2; }
 .lead { font-size: clamp(1.05rem, 1.6vw, 1.2rem); color: var(--muted); max-width: 62ch; margin-bottom: 28px; }
 .stage { margin-top: 48px; background: var(--surface); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 20px 0 16px; }
 .stage-row { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 8px; }
