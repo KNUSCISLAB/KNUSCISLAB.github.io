@@ -49,6 +49,7 @@ button { font: inherit; }
 .site-header { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: var(--bg); background: color-mix(in srgb, var(--bg) 90%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
 .bar { position: relative; display: flex; align-items: center; gap: 16px; height: 68px; }
 .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; line-height: 1.15; min-width: 0; }
+.brand.has-logo { flex: none; }
 .brand strong { font-weight: 600; font-size: 1.05rem; display: block; }
 .brand small { display: block; font-size: .75rem; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .brand img { height: 40px; width: auto; display: block; }
@@ -61,28 +62,28 @@ button { font: inherit; }
 :root[data-theme="dark"] .brand .knu .knu-dark { display: block; }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .brand .knu .knu-light { display: none; } :root:not([data-theme="light"]) .brand .knu .knu-dark { display: block; } }
 @media (max-width: 760px) { .brand img.logo { height: 40px; } }
-@media (min-width: 761px) and (max-width: 1240px) { .brand .knu { display: none; } }
+.bar.no-knu .brand .knu { display: none; }
 @media (max-width: 460px) { .brand .knu { display: none; } }
 .contact-list .wide { grid-column: 1 / -1; }
 .mark { flex: none; width: 38px; height: 38px; border-radius: 9px; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; }
 .mark svg { width: 26px; height: 26px; }
 .nav { margin-left: auto; display: flex; align-items: center; gap: 2px; }
-.nav a { padding: 8px 12px; border-radius: 6px; color: var(--muted); text-decoration: none; font-size: .95rem; white-space: nowrap; }
+.nav a { padding: 8px 10px; border-radius: 6px; color: var(--muted); text-decoration: none; font-size: .95rem; white-space: nowrap; }
+.site-header .wrap { max-width: 1440px; }
 .nav a:hover { color: var(--ink); background: var(--tint); }
 .nav a[aria-current="page"] { color: var(--ink); font-weight: 600; box-shadow: inset 0 -2px 0 var(--accent); border-radius: 0; }
 .nav .lang { margin-left: 8px; border: 1px solid var(--line); border-radius: 6px; }
 .icon-btn { flex: none; width: 40px; height: 40px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); display: inline-flex; align-items: center; justify-content: center; cursor: pointer; }
 .icon-btn svg { width: 18px; height: 18px; }
 .menu-btn { display: none; }
-@media (max-width: 900px) {
-  .menu-btn { display: inline-flex; }
-  .nav { display: none; position: absolute; left: -24px; right: -24px; top: 68px; flex-direction: column; align-items: stretch; gap: 0; background: var(--surface); border-bottom: 1px solid var(--line); padding: 8px 16px 16px; box-shadow: 0 12px 24px rgba(16,35,63,.12); }
-  .nav.open { display: flex; }
-  .nav a { padding: 14px 12px; font-size: 1.05rem; }
-  .nav a[aria-current="page"] { box-shadow: inset 3px 0 0 var(--accent); }
-  .nav .lang { margin: 8px 0 0; text-align: center; }
-  .theme-btn { margin-left: auto; }
-}
+/* The header switches to the menu button whenever the links don't fit (set by fitHeader in app.js). */
+.bar.collapsed .menu-btn { display: inline-flex; }
+.bar.collapsed .nav { display: none; position: absolute; left: -24px; right: -24px; top: 68px; flex-direction: column; align-items: stretch; gap: 0; background: var(--surface); border-bottom: 1px solid var(--line); padding: 8px 16px 16px; box-shadow: 0 12px 24px rgba(16,35,63,.12); }
+.bar.collapsed .nav.open { display: flex; }
+.bar.collapsed .nav a { padding: 14px 12px; font-size: 1.05rem; }
+.bar.collapsed .nav a[aria-current="page"] { box-shadow: inset 3px 0 0 var(--accent); }
+.bar.collapsed .nav .lang { margin: 8px 0 0; text-align: center; }
+.bar.collapsed .theme-btn { margin-left: auto; }
 
 /* ---------- buttons, chips ---------- */
 .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 20px; border-radius: 8px; font-weight: 600; text-decoration: none; border: 1px solid transparent; cursor: pointer; }

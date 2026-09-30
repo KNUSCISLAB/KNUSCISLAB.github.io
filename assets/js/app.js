@@ -139,7 +139,20 @@
     });
     nv.addEventListener('click', function (e) { if (e.target.closest('a')) { mb.setAttribute('aria-expanded', 'false'); nv.classList.remove('open'); } });
     var sk = $('.skip'); if (sk) sk.textContent = t('skip');
+    [].forEach.call(document.querySelectorAll('.brand img'), function (im) { if (!im.complete) im.addEventListener('load', fitHeader); });
+    fitHeader();
   }
+  // Hide the KNU logo, then fold the links into the menu button, only when they would otherwise overlap.
+  function fitHeader() {
+    var bar = $('.bar'), nav = $('#nav'), brand = $('.brand');
+    if (!bar || !nav || !brand) return;
+    var tight = function () { return brand.getBoundingClientRect().right + 12 > nav.getBoundingClientRect().left || bar.scrollWidth > bar.clientWidth + 1; };
+    bar.classList.remove('no-knu', 'collapsed');
+    if (tight()) bar.classList.add('no-knu');
+    if (tight()) bar.classList.add('collapsed');
+  }
+  var fitTimer;
+  window.addEventListener('resize', function () { clearTimeout(fitTimer); fitTimer = setTimeout(fitHeader, 80); });
 
   function renderFooter(site, meta) {
     site = site || {};
