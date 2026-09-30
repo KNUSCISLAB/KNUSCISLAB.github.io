@@ -26,7 +26,7 @@ window.I18N = {
     role_postdoc: 'Postdoctoral researchers', role_researcher: 'Researchers', role_phd: 'PhD students', role_ms: 'MS students', role_intern: 'Undergraduate interns', role_alumni: 'Alumni',
     interests: 'Interests', cv: 'CV', scholar: 'Google Scholar', orcid: 'ORCID',
     // publications
-    pubs_title: 'Publications', pubs_lead: 'Journal and conference papers since 2018, listed by year. Numbers run from the newest paper in each category, and Suh, D.* marks corresponding authorship.',
+    pubs_title: 'Publications', pubs_lead: 'Journal and conference papers since 2018, listed by year. Suh, D.* marks corresponding authorship.',
     search_pubs: 'Search by title, author, or venue', all: 'All', type_journal: 'Journals', type_under_review: 'Under review / Submitted', type_conference: 'Conferences', type_domestic: 'Domestic',
     pillar_all: 'All areas', pillar_energy: 'Energy AI', pillar_industrial: 'Industrial AI', pillar_other: 'Other', pillar_climate: 'Climate change policy', pillar_risk: 'Risk management', year_all: 'All years',
     showing: 'Showing {n} of {total}', no_results: 'No publications match these filters.', clear_filters: 'Clear filters',
@@ -78,7 +78,7 @@ window.I18N = {
     professor: '지도교수', bio: '약력', activities: '학회 및 위원 활동', talks: '초청 강연', press: '언론 보도',
     role_postdoc: '박사후연구원', role_researcher: '연구원', role_phd: '박사과정', role_ms: '석사과정', role_intern: '학부 인턴', role_alumni: '졸업생',
     interests: '관심 분야', cv: 'CV', scholar: 'Google Scholar', orcid: 'ORCID',
-    pubs_title: '논문·특허', pubs_lead: '2018년 이후의 학술지·학술대회 논문을 연도별로 정리했습니다. 번호는 분류별로 최신 논문부터 매기며, 교신저자는 Suh, D.* 로 표시합니다.',
+    pubs_title: '논문·특허', pubs_lead: '2018년 이후의 학술지·학술대회 논문을 연도별로 정리했습니다. 교신저자는 Suh, D.* 로 표시합니다.',
     search_pubs: '제목, 저자, 저널명으로 검색', all: '전체', type_journal: '국제 저널', type_under_review: '심사 중·투고', type_conference: '국제 학회', type_domestic: '국내',
     pillar_all: '모든 분야', pillar_energy: 'Energy AI', pillar_industrial: 'Industrial AI', pillar_other: '기타', pillar_climate: '기후변화 정책', pillar_risk: '위험 관리', year_all: '모든 연도',
     showing: '전체 {total}편 중 {n}편', no_results: '조건에 맞는 논문이 없습니다.', clear_filters: '필터 초기화',

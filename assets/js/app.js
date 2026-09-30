@@ -234,7 +234,7 @@
     var link = paperLink(p);
     var main = LANG === 'ko' && p.title_ko ? p.title_ko : p.title, alt = p.title_ko ? (main === p.title ? p.title_ko : p.title) : '';
     var title = link ? '<a href="' + esc(link) + '" target="_blank" rel="noopener" style="text-decoration:none">' + esc(main) + '</a>' : esc(main);
-    return '<li class="pub' + (thumb ? ' has-thumb' : '') + '">' + thumb + '<div><h3>' + (p._label ? '<span class="label">[' + esc(p._label) + ']</span> ' : '') + title + '</h3>' +
+    return '<li class="pub' + (thumb ? ' has-thumb' : '') + '">' + thumb + '<div><h3>' + title + '</h3>' +
       (alt ? '<p class="alt-title">' + esc(alt) + '</p>' : '') +
       '<p class="authors">' + authorsHTML(p) + '</p><p class="venue">' + venue + '</p>' + pubMetrics(p) +
       '<div class="pub-foot">' + foot.join('') + '</div></div></li>';
@@ -255,7 +255,7 @@
       return (b.year - a.year) || (pubOrder(a) - pubOrder(b)) || (pubMonth(b) - pubMonth(a)) || (PUB_TYPES.indexOf(a.type) - PUB_TYPES.indexOf(b.type)) || String(a.title).localeCompare(String(b.title));
     });
   }
-  // Numbers such as [J1] are given newest first within each category, so new uploads number themselves.
+  // Sorts publications and tags each with its position in its category (not shown on the site).
   function labelPubs(list) {
     var sorted = sortPubs(list), n = {};
     sorted.forEach(function (p) { if (PREFIX[p.type]) { n[p.type] = (n[p.type] || 0) + 1; p._label = PREFIX[p.type] + n[p.type]; } });
@@ -333,7 +333,7 @@
     fill('#home-pubs', '<div class="wrap"><div class="sec-head"><h2>' + esc(t('recent_pubs')) + '</h2><a class="more" href="' + href('publications.html') + '">' + esc(t('all_pubs_n', { n: journals.length })) + '</a></div>' +
       feat.map(function (p) {
         var visual = p.thumbnail ? '<img class="thumb" src="' + esc(p.thumbnail) + '" alt="" loading="lazy">' : glyph(p.pillar);
-        return '<article class="fpub">' + visual + '<div><h3>' + (p._label ? '<span class="label">[' + esc(p._label) + ']</span> ' : '') + esc(p.title) + '</h3><p class="muted" style="margin:0 0 2px">' + authorsHTML(p) + '</p>' +
+        return '<article class="fpub">' + visual + '<div><h3>' + esc(p.title) + '</h3><p class="muted" style="margin:0 0 2px">' + authorsHTML(p) + '</p>' +
           '<p style="margin:0 0 10px"><i>' + esc(p.venue) + '</i>, ' + esc(p.year) + '</p>' +
           '<div class="pub" style="padding:0;border:0">' + pubMetrics(p) + '</div><div class="pub-foot">' +
           (paperLink(p) ? '<a href="' + esc(paperLink(p)) + '" target="_blank" rel="noopener">' + esc(t('doi')) + '</a>' : '') +
@@ -534,7 +534,7 @@
           if (p.application) meta.push(esc(t('application')) + ' ' + (p.kind === 'pending' && p.country === 'KR' ? 'KR ' : '') + esc(p.application) + (p.application_date ? ' (' + esc(p.application_date) + ')' : ''));
           if (p.publication) meta.push(esc(t('publication_no')) + ' ' + esc(p.publication));
           var status = loc(p, 'status'), inv = loc(p, 'inventors');
-          return '<div class="patent"><h3><span class="label">[' + g[1] + (i + 1) + ']</span> ' + esc(loc(p, 'title')) + '</h3><p>' + meta.join(' · ') + '</p>' +
+          return '<div class="patent"><h3>' + esc(loc(p, 'title')) + '</h3><p>' + meta.join(' · ') + '</p>' +
             ((status || inv) ? '<p>' + [status ? '<span class="badge warn">' + esc(status) + '</span>' : '', inv ? esc(t('inventors')) + ': ' + esc(inv) : ''].filter(Boolean).join(' ') + '</p>' : '') + '</div>';
         }).join('');
       }).join('') + '</div>');

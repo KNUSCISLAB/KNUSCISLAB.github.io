@@ -54,7 +54,8 @@ button { font: inherit; }
 .brand img { height: 40px; width: auto; display: block; }
 .brand img.logo { height: 52px; }
 .brand .knu { display: flex; align-items: center; padding-left: 12px; border-left: 1px solid var(--line); height: 32px; }
-.brand .knu img { height: 20px; width: auto; }
+.brand .knu img { height: 20px; width: auto; max-width: none; flex: none; }
+.brand img, .brand .knu { flex: none; max-width: none; }
 .brand .knu .knu-dark { display: none; }
 :root[data-theme="dark"] .brand .knu .knu-light { display: none; }
 :root[data-theme="dark"] .brand .knu .knu-dark { display: block; }
