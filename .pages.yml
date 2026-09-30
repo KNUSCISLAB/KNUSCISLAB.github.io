@@ -104,7 +104,6 @@ content:
         options:
           values:
             - { name: corresponding, label: "교신저자" }
-            - { name: co_corresponding, label: "공동 교신저자" }
             - { name: first_corresponding, label: "제1저자·교신저자" }
             - { name: first, label: "제1저자" }
             - { name: coauthor, label: "공동저자" }
@@ -192,6 +191,7 @@ content:
       - { name: departments_ko, label: "소속 학과 (한글)", type: string, list: true }
       - { name: email, label: "이메일", type: string }
       - { name: phone, label: "전화", type: string }
+      - { name: homepages, label: "홈페이지 주소 (여러 개 가능)", type: string, list: true }
       - { name: office_en, label: "연구실 위치 (영문, 여러 줄 가능)", type: text }
       - { name: office_ko, label: "연구실 위치 (한글, 여러 줄 가능)", type: text }
       - { name: photo, label: "사진", type: image }
