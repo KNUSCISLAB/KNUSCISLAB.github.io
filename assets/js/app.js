@@ -406,7 +406,7 @@
       (loc(pr, 'office') ? '<div class="wide"><dt>Office</dt><dd>' + esc(loc(pr, 'office')).replace(/\n/g, '<br>') + '</dd></div>' : '') +
       '</dl>' + (links.length ? '<div class="actions" style="margin-bottom:20px">' + links.join('') + '</div>' : '') +
       '<div class="bio"><h3 class="sub-h" style="margin-top:8px">' + esc(t('bio')) + '</h3>' + paras(loc(pr, 'bio')) + '</div>' +
-      (pr.awards && pr.awards.length ? '<details class="more-box" open><summary>' + esc(t('awards')) + ' (' + pr.awards.length + ')</summary><ul>' + sortNews(pr.awards).map(function (a) {
+      (pr.awards && pr.awards.length ? '<details class="more-box"><summary>' + esc(t('awards')) + ' (' + pr.awards.length + ')</summary><ul>' + sortNews(pr.awards).map(function (a) {
         return '<li>' + fmtDate(a.date) + '. ' + esc(loc(a, 'title')) + '</li>'; }).join('') + '</ul></details>' : '') +
       (acts.length ? '<details class="more-box"><summary>' + esc(t('activities')) + '</summary><ul>' + acts.map(function (a) { return '<li>' + esc(a) + '</li>'; }).join('') + '</ul></details>' : '') +
       (talks.length ? '<details class="more-box"><summary>' + esc(t('talks')) + ' (' + talks.length + ')</summary><ul>' + talks.map(function (x) {
