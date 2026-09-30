@@ -78,7 +78,7 @@ button { font: inherit; }
 .menu-btn { display: none; }
 /* The header switches to the menu button whenever the links don't fit (set by fitHeader in app.js). */
 .bar.collapsed .menu-btn { display: inline-flex; }
-.bar.collapsed .nav { display: none; position: absolute; left: -24px; right: -24px; top: 68px; flex-direction: column; align-items: stretch; gap: 0; background: var(--surface); border-bottom: 1px solid var(--line); padding: 8px 16px 16px; box-shadow: 0 12px 24px rgba(16,35,63,.12); }
+.bar.collapsed .nav { display: none; position: absolute; left: 0; right: 0; top: 68px; flex-direction: column; align-items: stretch; gap: 0; background: var(--surface); border-bottom: 1px solid var(--line); padding: 8px 16px 16px; box-shadow: 0 12px 24px rgba(16,35,63,.12); }
 .bar.collapsed .nav.open { display: flex; }
 .bar.collapsed .nav a { padding: 14px 12px; font-size: 1.05rem; }
 .bar.collapsed .nav a[aria-current="page"] { box-shadow: inset 3px 0 0 var(--accent); }
@@ -334,6 +334,7 @@ details.more-box li span { color: var(--muted); }
 .person .ko { color: var(--muted); font-weight: 400; font-size: .92rem; }
 .person p { margin: 0 0 4px; font-size: .9rem; color: var(--muted); }
 .person a { font-size: .88rem; color: var(--accent); text-decoration: none; overflow-wrap: anywhere; }
+@media (max-width: 600px) { .people-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; } .person { padding: 12px; } .person h3 { font-size: .95rem; } .person p, .person a { font-size: .8rem; } .avatar { width: 60px; height: 80px; margin-bottom: 8px; } }
 .alumni-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0 24px; }
 .alumni-grid li { padding: 10px 0; border-top: 1px solid var(--line); }
 .alumni-grid b { font-weight: 600; display: block; }
