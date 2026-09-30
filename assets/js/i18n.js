@@ -2,7 +2,7 @@
 window.I18N = {
   en: {
     skip: 'Skip to content',
-    nav_research: 'Research', nav_prof: 'Professor', nav_people: 'Researchers', nav_pubs: 'Publications', nav_projects: 'Projects', nav_news: 'News', nav_join: 'Join us',
+    nav_research: 'Research', nav_prof: 'Professor', nav_people: 'Researchers', nav_pubs: 'Publications', nav_projects: 'Projects', nav_news: 'News', nav_photos: 'Photos', nav_join: 'Join us',
     lang_switch: '한국어', lang_label: 'Korean version',
     menu: 'Menu', theme: 'Color theme', theme_auto: 'Theme: automatic', theme_light: 'Theme: light', theme_dark: 'Theme: dark',
     loading: 'Loading…', load_error: 'Some content could not be loaded. Refresh the page to try again.',
@@ -44,6 +44,7 @@ window.I18N = {
     // projects
     projects_title: 'Projects', projects_lead: 'Research projects and education programs led or joined by the lab.', proj_pi: 'Principal investigator', proj_co: 'Co-investigator and participating faculty',
     collab: 'International collaboration', collab_lead: 'We work with {i} institutions in {c} countries, through joint research since 2018.', awards: 'Awards and honors',
+    photos_title: 'Photos', photos_lead: 'Conferences, workshops, graduations, and everyday life in the lab.', photos_n: '{n} photos', no_photos: 'No photos yet.', prev: 'Previous photo', next: 'Next photo', close: 'Close',
     // news
     news_title: 'News', news_lead: 'Papers, awards, talks, and lab events.',
     cat_all: 'All', cat_publication: 'Publication', cat_award: 'Award', cat_talk: 'Talk', cat_project: 'Project', cat_recruiting: 'Recruiting', cat_event: 'Lab event',
@@ -54,7 +55,7 @@ window.I18N = {
   },
   ko: {
     skip: '본문으로 바로가기',
-    nav_research: '연구', nav_prof: '지도교수', nav_people: '구성원', nav_pubs: '논문·특허', nav_projects: '연구과제', nav_news: '소식', nav_join: '지원 안내',
+    nav_research: '연구', nav_prof: '지도교수', nav_people: '구성원', nav_pubs: '논문·특허', nav_projects: '연구과제', nav_news: '소식', nav_photos: '사진', nav_join: '지원 안내',
     lang_switch: 'English', lang_label: 'English version',
     menu: '메뉴', theme: '화면 테마', theme_auto: '테마: 자동', theme_light: '테마: 밝게', theme_dark: '테마: 어둡게',
     loading: '불러오는 중…', load_error: '일부 내용을 불러오지 못했습니다. 새로고침해 주세요.',
@@ -92,6 +93,7 @@ window.I18N = {
     registered_on: '등록 {d}', application: '출원', publication_no: '공개',
     projects_title: '연구과제', projects_lead: '연구실이 수행하거나 참여한 연구과제와 인재양성 사업입니다.', proj_pi: '연구책임자', proj_co: '공동연구원·참여연구원',
     collab: '국제 공동연구', collab_lead: '2018년 이후 공동연구 기준으로 {c}개국 {i}개 기관과 협력하고 있습니다.', awards: '수상',
+    photos_title: '사진', photos_lead: '학술대회, 워크숍, 졸업식, 그리고 연구실의 일상입니다.', photos_n: '사진 {n}장', no_photos: '아직 사진이 없습니다.', prev: '이전 사진', next: '다음 사진', close: '닫기',
     news_title: '소식', news_lead: '논문, 수상, 발표, 연구실 행사 소식입니다.',
     cat_all: '전체', cat_publication: '논문', cat_award: '수상·특허', cat_talk: '발표·강연', cat_project: '과제·협력', cat_recruiting: '모집', cat_event: '연구실 소식',
     read_more: '자세히 보기', no_news: '이 종류의 소식이 아직 없습니다.',

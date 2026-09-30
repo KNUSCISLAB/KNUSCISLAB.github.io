@@ -107,12 +107,13 @@
 
   /* ---------- shared chrome ---------- */
   function renderHeader(site) {
+    if (site && site.logo) store.set('logo', site.logo);
     var logo = site && site.logo
       ? '<img class="logo" src="' + esc(site.logo) + '" alt="">'
       : '<span class="mark" aria-hidden="true"><svg viewBox="0 0 26 26"><path d="M3 19C7 19 8 7 13 7S19 19 23 19" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></span>';
     var name = (site && site.short_name) || 'SCIS Lab';
     var uni = (site && loc(site, 'university')) || 'Kyungpook National University';
-    var links = [['research', 'research.html', 'nav_research'], ['professor', 'professor.html', 'nav_prof'], ['people', 'people.html', 'nav_people'], ['publications', 'publications.html', 'nav_pubs'], ['projects', 'projects.html', 'nav_projects'], ['news', 'news.html', 'nav_news']];
+    var links = [['research', 'research.html', 'nav_research'], ['professor', 'professor.html', 'nav_prof'], ['people', 'people.html', 'nav_people'], ['projects', 'projects.html', 'nav_projects'], ['publications', 'publications.html', 'nav_pubs'], ['news', 'news.html', 'nav_news'], ['photos', 'photos.html', 'nav_photos']];
     var nav = links.map(function (l) {
       return '<a href="' + href(l[1]) + '"' + (PAGE === l[0] ? ' aria-current="page"' : '') + '>' + esc(t(l[2])) + '</a>';
     }).join('');
@@ -204,13 +205,16 @@
   function pubMetrics(p) {
     var parts = [];
     if (p.published) parts.push(esc(t('published', { d: LANG === 'ko' ? String(p.published).replace(/online/g, '온라인') : p.published })));
-    if (isJournal(p) && p.type !== 'other') parts.push('<b>' + esc(p.type.toUpperCase()) + '</b>');
-    if (p.impact_factor) parts.push('IF ' + esc(p.impact_factor) + (p.jcr_year ? ' (JCR ' + esc(p.jcr_year) + ')' : ''));
-    if (p.quartile) parts.push('<b>' + esc(p.quartile) + '</b>');
-    if (p.jcr_top) parts.push(esc(t('jcr_top', { p: p.jcr_top })) + (p.jcr_category ? ' (' + esc(p.jcr_category) + (p.jcr_rank ? ' ' + esc(p.jcr_rank) : '') + ')' : ''));
+    var tags = [];
+    if (isJournal(p) && p.type !== 'other') tags.push('<span class="mt idx">' + esc(p.type.toUpperCase()) + '</span>');
+    if (p.impact_factor) tags.push('<span class="mt">IF ' + esc(p.impact_factor) + '</span>');
+    if (p.quartile) tags.push('<span class="mt' + (p.quartile === 'Q1' ? ' q1' : '') + '">' + esc(p.quartile) + '</span>');
+    if (p.jcr_top) tags.push('<span class="mt">JCR ' + esc(t('jcr_top', { p: p.jcr_top })) + '</span>');
+    if (p.jcr_category) parts.unshift(esc(p.jcr_category) + (p.jcr_rank ? ' ' + esc(p.jcr_rank) : '') + (p.jcr_year ? ' (JCR ' + esc(p.jcr_year) + ')' : ''));
     if (p.metrics) parts.push(esc(p.metrics));
     if (p.author_role && p.type !== 'under_review') parts.push(esc(t('role_' + p.author_role)));
-    return parts.length ? '<p class="metrics">' + parts.join('<span aria-hidden="true"> · </span>') + '</p>' : '';
+    if (!tags.length && !parts.length) return '';
+    return '<p class="metrics">' + (tags.length ? '<span class="mts">' + tags.join('') + '</span>' : '') + parts.join('<span aria-hidden="true"> · </span>') + '</p>';
   }
   function pubItem(p, opts) {
     opts = opts || {};
@@ -571,6 +575,42 @@
     if (location.hash) { var el = document.getElementById(location.hash.slice(1)); if (el) el.scrollIntoView(); }
   };
 
+  pages.photos = function (d) {
+    var site = d.site || {};
+    document.title = t('photos_title') + ' | ' + (site.short_name || 'SCIS Lab');
+    fill('#page-head', '<div class="wrap"><h1>' + esc(t('photos_title')) + '</h1><p>' + esc(t('photos_lead')) + '</p></div>');
+    var albums = sortNews(d.photos).filter(function (a) { return a.photos && a.photos.length; });
+    var flat = [], html = '', lastY = null;
+    albums.forEach(function (a) {
+      var y = String(a.date).slice(0, 4);
+      if (y !== lastY) { html += (lastY ? '</div>' : '') + '<h2 class="year-h">' + esc(y) + '</h2><div class="albums">'; lastY = y; }
+      var title = loc(a, 'title');
+      html += '<section class="album"><h3>' + esc(title) + '</h3><p class="muted">' + fmtDate(a.date) + ' · ' + esc(t('photos_n', { n: a.photos.length })) + '</p><div class="thumbs">' +
+        a.photos.map(function (p) {
+          flat.push({ src: p.image, caption: p.caption || title });
+          return '<button type="button" data-i="' + (flat.length - 1) + '" aria-label="' + esc(p.caption || title) + '"><img src="' + esc(p.image) + '" alt="' + esc(p.caption || title) + '" loading="lazy"></button>';
+        }).join('') + '</div></section>';
+    });
+    if (lastY) html += '</div>';
+    fill('#content', '<div class="wrap">' + (html || '<p class="status" style="margin-top:24px">' + esc(t('no_photos')) + '</p>') + '</div>' +
+      '<dialog class="lightbox" aria-label="' + esc(t('photos_title')) + '"><img alt=""><p></p>' +
+      '<button type="button" class="lb-prev" aria-label="' + esc(t('prev')) + '">‹</button><button type="button" class="lb-next" aria-label="' + esc(t('next')) + '">›</button>' +
+      '<button type="button" class="lb-close" aria-label="' + esc(t('close')) + '">×</button></dialog>');
+    var dlg = $('.lightbox'), cur = 0;
+    function show(i) {
+      cur = (i + flat.length) % flat.length;
+      dlg.querySelector('img').src = flat[cur].src; dlg.querySelector('img').alt = flat[cur].caption;
+      dlg.querySelector('p').textContent = flat[cur].caption + ' (' + (cur + 1) + ' / ' + flat.length + ')';
+      if (!dlg.open) dlg.showModal();
+    }
+    $('#content').addEventListener('click', function (e) { var b = e.target.closest('[data-i]'); if (b) show(+b.getAttribute('data-i')); });
+    dlg.querySelector('.lb-prev').addEventListener('click', function () { show(cur - 1); });
+    dlg.querySelector('.lb-next').addEventListener('click', function () { show(cur + 1); });
+    dlg.querySelector('.lb-close').addEventListener('click', function () { dlg.close(); });
+    dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
+    dlg.addEventListener('keydown', function (e) { if (e.key === 'ArrowLeft') show(cur - 1); if (e.key === 'ArrowRight') show(cur + 1); });
+  };
+
   pages.news = function (d) {
     var site = d.site || {};
     document.title = t('news_title') + ' | ' + (site.short_name || 'SCIS Lab');
@@ -608,12 +648,13 @@
     research: ['site', 'research', 'publications', 'meta'],
     projects: ['site', 'projects', 'programs', 'collaborations', 'meta'],
     professor: ['site', 'professor', 'talks', 'press', 'meta'],
+    photos: ['site', 'photos', 'meta'],
     people: ['site', 'people', 'meta'],
     publications: ['site', 'publications', 'patents', 'meta'],
     news: ['site', 'news', 'meta'],
     notfound: ['site', 'meta']
   };
-  renderHeader(null);
+  renderHeader({ logo: store.get('logo') || 'assets/img/logo.png' });
   loadAll(NEEDS[PAGE] || ['site', 'meta']).then(function (d) {
     renderHeader(d.site);
     try { (pages[PAGE] || pages.notfound)(d); } catch (e) { loadFailed = true; console.error(e); }

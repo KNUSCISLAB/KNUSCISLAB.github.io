@@ -1,0 +1,23 @@
+{
+  "date": "2022",
+  "title_en": "New video conference room and graduate student lounge",
+  "title_ko": "새 화상회의실과 대학원생 라운지",
+  "photos": [
+    {
+      "image": "/assets/uploads/gallery/lab-facilities/01.jpg",
+      "caption": "Video conference room"
+    },
+    {
+      "image": "/assets/uploads/gallery/lab-facilities/02.jpg",
+      "caption": "Video conference room"
+    },
+    {
+      "image": "/assets/uploads/gallery/lab-facilities/03.jpg",
+      "caption": "Graduate student lounge"
+    },
+    {
+      "image": "/assets/uploads/gallery/lab-facilities/04.jpg",
+      "caption": "Graduate student lounge"
+    }
+  ]
+}

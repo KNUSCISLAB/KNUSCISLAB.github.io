@@ -354,6 +354,28 @@ content:
       - { name: role_en, label: "역할 (영문)", type: string }
       - { name: role_ko, label: "역할 (한글)", type: string }
 
+  - name: photos
+    label: "사진 (Photos)"
+    type: collection
+    path: data/photos
+    format: json
+    filename: "{fields.date}-{primary}.json"
+    view:
+      fields: [date, title_ko, title_en]
+      primary: title_en
+      default: { sort: date, order: desc }
+    fields:
+      - { name: date, label: "날짜 (예: 2025-08, 모르면 2025)", type: string, required: true }
+      - { name: title_en, label: "앨범 제목 (영문)", type: string, required: true }
+      - { name: title_ko, label: "앨범 제목 (한글)", type: string }
+      - name: photos
+        label: "사진"
+        type: object
+        list: true
+        fields:
+          - { name: image, label: "사진", type: image }
+          - { name: caption, label: "설명 (선택, 비우면 앨범 제목)", type: string }
+
   - name: collaborations
     label: "국제 공동연구 기관 (Collaborations)"
     type: file

@@ -222,6 +222,25 @@ html[lang="ko"] .hero h1 { max-width: 22ch; line-height: 1.2; }
 .pub .alt-title { color: var(--muted); font-size: .92rem; margin: -2px 0 4px; }
 .pub .metrics { font-size: .86rem; color: var(--muted); margin: -4px 0 8px; }
 .pub .metrics b { color: var(--ink); font-weight: 600; }
+.pub .mts { display: inline-flex; gap: 4px; flex-wrap: wrap; margin-right: 8px; vertical-align: 1px; }
+.pub .mt { font-size: .76rem; font-weight: 600; padding: 1px 7px; border-radius: 4px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); white-space: nowrap; }
+.pub .mt.idx { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+.pub .mt.q1 { background: var(--tint); border-color: var(--accent); color: var(--accent); }
+.albums { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+.album { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px; }
+.album h3 { font-size: 1rem; font-weight: 600; margin-bottom: 2px; }
+.album .muted { font-size: .85rem; margin: 0 0 10px; }
+.thumbs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.thumbs button { padding: 0; border: 0; background: var(--tint); border-radius: 6px; overflow: hidden; cursor: zoom-in; aspect-ratio: 4/3; }
+.thumbs img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .2s; }
+.thumbs button:hover img { transform: scale(1.04); }
+.lightbox { border: 0; padding: 0; background: transparent; max-width: 96vw; max-height: 96vh; overflow: visible; }
+.lightbox::backdrop { background: rgba(0, 0, 0, .85); }
+.lightbox img { display: block; max-width: 92vw; max-height: 82vh; margin: 0 auto; border-radius: 6px; }
+.lightbox p { color: #fff; text-align: center; margin: 10px 0 0; font-size: .95rem; }
+.lightbox button { position: fixed; top: 50%; transform: translateY(-50%); width: 48px; height: 48px; border-radius: 50%; border: 0; background: rgba(255, 255, 255, .15); color: #fff; font-size: 1.8rem; cursor: pointer; }
+.lightbox .lb-prev { left: 16px; } .lightbox .lb-next { right: 16px; }
+.lightbox .lb-close { top: 32px; right: 16px; transform: none; }
 .type-block { margin-top: 12px; }
 .type-h { font-size: 1.5rem; font-weight: 600; margin: 48px 0 0; padding-bottom: 8px; border-bottom: 2px solid var(--ink); }
 .type-h span { color: var(--muted); font-weight: 400; font-size: 1rem; margin-left: 6px; }
@@ -265,9 +284,9 @@ html[lang="ko"] .hero h1 { max-width: 22ch; line-height: 1.2; }
 @media (max-width: 600px) { .news-list > li { grid-template-columns: 1fr; gap: 2px; } }
 
 /* ---------- people ---------- */
-.prof { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 40px; padding-top: 48px; }
+.prof { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 36px; padding-top: 48px; }
 .prof .photo, .avatar { background: var(--tint); color: var(--accent); display: grid; place-items: center; font-weight: 600; overflow: hidden; }
-.prof .photo { width: 240px; aspect-ratio: 3/4; border-radius: 12px; font-size: 3rem; }
+.prof .photo { width: 170px; aspect-ratio: 3/4; border-radius: 12px; font-size: 2.4rem; }
 .prof .photo img, .avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; }
 .prof h2 { font-size: 1.9rem; font-weight: 600; margin-bottom: 4px; }
 .prof .title { color: var(--accent); font-weight: 600; margin-bottom: 12px; }
@@ -295,7 +314,7 @@ details.more-box li span { color: var(--muted); }
 .alumni-grid li { padding: 10px 0; border-top: 1px solid var(--line); }
 .alumni-grid b { font-weight: 600; display: block; }
 .alumni-grid span { color: var(--muted); font-size: .9rem; }
-@media (max-width: 760px) { .prof { grid-template-columns: 1fr; gap: 24px; } .prof .photo { width: 180px; } .contact-list { grid-template-columns: 1fr; } }
+@media (max-width: 760px) { .prof { grid-template-columns: 1fr; gap: 24px; } .prof .photo { width: 130px; } .contact-list { grid-template-columns: 1fr; } }
 
 /* ---------- join & footer ---------- */
 .join { margin-top: 80px; background: var(--tint); border-radius: 14px; padding: 40px; display: grid; grid-template-columns: 1.4fr 1fr; gap: 32px; align-items: center; }

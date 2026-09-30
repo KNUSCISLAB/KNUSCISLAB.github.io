@@ -8,9 +8,9 @@ import path from 'node:path';
 
 const ROOT = process.cwd();
 const OUT = path.join(ROOT, '_site');
-const COLLECTIONS = ['publications', 'patents', 'news', 'people', 'research', 'projects', 'programs'];
+const COLLECTIONS = ['publications', 'patents', 'news', 'people', 'research', 'projects', 'programs', 'photos'];
 const SINGLE_FILES = ['site.json', 'professor.json', 'talks.json', 'press.json', 'collaborations.json'];
-const COPY = ['index.html', 'research.html', 'professor.html', 'people.html', 'publications.html', 'projects.html', 'news.html', '404.html', 'robots.txt', 'sitemap.xml', 'assets'];
+const COPY = ['index.html', 'research.html', 'professor.html', 'people.html', 'publications.html', 'projects.html', 'news.html', 'photos.html', '404.html', 'robots.txt', 'sitemap.xml', 'assets'];
 
 let errors = 0;
 fs.rmSync(OUT, { recursive: true, force: true });
@@ -51,6 +51,13 @@ fs.writeFileSync(path.join(OUT, 'data', 'meta.json'), JSON.stringify({ updated: 
 for (const item of COPY) {
   const src = path.join(ROOT, item);
   if (fs.existsSync(src)) fs.cpSync(src, path.join(OUT, item), { recursive: true });
+}
+
+// Add a version to CSS/JS links so browsers load the new files after each deploy.
+const VERSION = Date.now().toString(36);
+for (const file of fs.readdirSync(OUT).filter(f => f.endsWith('.html'))) {
+  const p = path.join(OUT, file);
+  fs.writeFileSync(p, fs.readFileSync(p, 'utf8').replace(/(assets\/(?:css|js)\/[\w.-]+\.(?:css|js))"/g, `$1?v=${VERSION}"`));
 }
 
 if (errors) {
