@@ -293,6 +293,17 @@ html[lang="ko"] .hero h1 { max-width: 22ch; line-height: 1.2; }
 .news-list p { margin: 0; color: var(--muted); }
 .news-list img { margin-top: 12px; border-radius: 8px; max-height: 280px; object-fit: cover; }
 .news-list a.more { display: inline-block; margin-top: 6px; }
+.news-more summary { list-style: none; cursor: pointer; }
+.news-more summary::-webkit-details-marker { display: none; }
+.news-more summary:hover h3 { color: var(--accent); }
+.news-toggle { display: inline-block; margin-top: 6px; font-size: .88rem; color: var(--accent); font-weight: 600; }
+.news-toggle::after { content: " +"; }
+.news-more[open] .news-toggle::after { content: " −"; }
+.news-more[open] summary > p { display: none; }
+.news-detail { margin-top: 10px; }
+.news-detail p { margin: 0 0 10px; color: var(--ink); }
+.news-imgs { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; margin-top: 6px; }
+.news-imgs img { margin: 0; width: 100%; max-height: none; border: 1px solid var(--line); }
 @media (max-width: 600px) { .news-list > li { grid-template-columns: 1fr; gap: 2px; } }
 
 /* ---------- people ---------- */

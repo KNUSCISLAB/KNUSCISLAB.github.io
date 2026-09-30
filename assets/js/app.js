@@ -266,14 +266,18 @@
   }
   function byOrder(a, b) { return (a.order || 0) - (b.order || 0); }
   function catLabel(c) { return t('cat_' + c); }
+  // A news entry shows its title and first line; clicking the title opens the full text and photos.
+  function newsImages(n) { return (Array.isArray(n.image) ? n.image : [n.image]).filter(Boolean); }
   function newsItem(n) {
-    var body = loc(n, 'body');
-    return '<li><time datetime="' + esc(n.date) + '">' + fmtDate(n.date) + '</time><div>' +
-      '<span class="badge' + (n.category === 'award' ? ' alt' : '') + '">' + esc(catLabel(n.category)) + '</span>' +
-      '<h3>' + esc(loc(n, 'title')) + '</h3>' + (body ? '<p>' + esc(body) + '</p>' : '') +
-      (n.image ? '<img src="' + esc(n.image) + '" alt="" loading="lazy">' : '') +
-      (n.link ? '<a class="more" href="' + esc(n.link) + '" target="_blank" rel="noopener">' + esc(t('read_more')) + '</a>' : '') +
-      '</div></li>';
+    var body = String(loc(n, 'body') || '').replace(/[ \t]+\n/g, '\n').trim(), imgs = newsImages(n);
+    var first = body.split(/\n/)[0].trim(), more = body.length > first.length || imgs.length || n.link;
+    var head = '<span class="badge' + (n.category === 'award' ? ' alt' : '') + '">' + esc(catLabel(n.category)) + '</span>' +
+      '<h3>' + esc(loc(n, 'title')) + '</h3>' + (first ? '<p>' + esc(first.length > 180 ? first.slice(0, 180) + '…' : first) + '</p>' : '');
+    var detail = more ? '<div class="news-detail">' + paras(body) +
+      (imgs.length ? '<div class="news-imgs">' + imgs.map(function (u) { return '<a href="' + esc(u) + '" target="_blank" rel="noopener"><img src="' + esc(u) + '" alt="" loading="lazy"></a>'; }).join('') + '</div>' : '') +
+      (n.link ? '<a class="more" href="' + esc(n.link) + '" target="_blank" rel="noopener">' + esc(t('read_more')) + '</a>' : '') + '</div>' : '';
+    return '<li><time datetime="' + esc(n.date) + '">' + fmtDate(n.date) + '</time>' +
+      (more ? '<details class="news-more"><summary>' + head + '<span class="news-toggle">' + esc(t('details')) + '</span></summary>' + detail + '</details>' : '<div>' + head + '</div>') + '</li>';
   }
   function joinBlock(site) {
     var open = site && site.recruiting_open;
