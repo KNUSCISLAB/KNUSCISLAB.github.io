@@ -23,7 +23,7 @@ window.I18N = {
     people_title: 'Researchers', people_lead: 'Researchers and students who work on Energy AI and Industrial AI.',
     prof_title: 'Professor', prof_lead: 'Principal investigator of the SCIS Lab.',
     professor: 'Principal investigator', bio: 'Biography', activities: 'Professional service', talks: 'Invited talks', press: 'Press',
-    role_postdoc: 'Postdoctoral researchers', role_researcher: 'Researchers', role_phd: 'PhD students', role_ms: 'MS students', role_intern: 'Undergraduate interns', role_alumni: 'Alumni',
+    role_postdoc: 'Postdoctoral researchers', role_researcher: 'Researchers', role_phd: 'PhD students', role_ms: 'MS students', role_intern: 'BS/MS integrated course students', role_alumni: 'Alumni',
     interests: 'Interests', cv: 'CV', scholar: 'Google Scholar', orcid: 'ORCID',
     // publications
     pubs_title: 'Publications', pubs_lead: 'Journal and conference papers since 2018, listed by year. Suh, D.* marks corresponding authorship.',
@@ -76,7 +76,7 @@ window.I18N = {
     people_title: '구성원', people_lead: 'Energy AI와 Industrial AI를 함께 연구하는 연구원과 학생들입니다.',
     prof_title: '지도교수', prof_lead: 'SCIS Lab 지도교수를 소개합니다.',
     professor: '지도교수', bio: '약력', activities: '학회 및 위원 활동', talks: '초청 강연', press: '언론 보도',
-    role_postdoc: '박사후연구원', role_researcher: '연구원', role_phd: '박사과정', role_ms: '석사과정', role_intern: '학부 인턴', role_alumni: '졸업생',
+    role_postdoc: '박사후연구원', role_researcher: '연구원', role_phd: '박사과정', role_ms: '석사과정', role_intern: '학석사 통합과정', role_alumni: '졸업생',
     interests: '관심 분야', cv: 'CV', scholar: 'Google Scholar', orcid: 'ORCID',
     pubs_title: '논문·특허', pubs_lead: '2018년 이후의 학술지·학술대회 논문을 연도별로 정리했습니다. 교신저자는 Suh, D.* 로 표시합니다.',
     search_pubs: '제목, 저자, 저널명으로 검색', all: '전체', type_journal: '국제 저널', type_under_review: '심사 중·투고', type_conference: '국제 학회', type_domestic: '국내',

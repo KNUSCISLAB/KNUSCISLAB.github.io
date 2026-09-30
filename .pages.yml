@@ -165,7 +165,7 @@ content:
             - { name: researcher, label: "연구원 (Researcher)" }
             - { name: phd, label: "박사과정 (PhD)" }
             - { name: ms, label: "석사과정 (MS)" }
-            - { name: intern, label: "학부 인턴 (Intern)" }
+            - { name: intern, label: "학석사 통합과정 (BS/MS integrated)" }
             - { name: alumni, label: "졸업생 (Alumni)" }
       - { name: note, label: "비고 (예: MS 2024, 현재 소속)", type: string }
       - { name: email, label: "이메일", type: string }
