@@ -1,0 +1,11 @@
+{
+  "date": "2021-07",
+  "category": "award",
+  "title_en": "Best paper award at the KDCS Conference 2021",
+  "title_ko": "2021 한국디지털콘텐츠학회 학술발표대회 우수논문상 수상",
+  "body_en": "Geonkyo Hong and Junghoon Choi, \"An Anomaly Detection Based on Supervised Learning Using the SCADA Dataset of Wind Turbine\" (advisor: Prof. Dongjun Suh).",
+  "body_ko": "홍건교·최정훈, 「풍력 터빈의 SCADA 데이터를 활용한 지도학습 기반의 이상 징후 탐지」 (지도교수: 서동준)",
+  "link": "",
+  "image": "",
+  "pinned": false
+}

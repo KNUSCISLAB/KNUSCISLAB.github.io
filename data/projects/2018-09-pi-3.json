@@ -1,0 +1,13 @@
+{
+  "group": "pi",
+  "start": "2018-09",
+  "end": "2021-08",
+  "role_en": "PI",
+  "role_ko": "연구책임자",
+  "title_en": "AI-based deep energy MPC for optimal operation of buildings connected to microgrids",
+  "title_ko": "마이크로그리드 연계 건물 에너지 최적 운영을 위한 인공지능 기반 딥 에너지 MPC 핵심 기술 연구",
+  "funder_en": "NRF Basic Research Program (Early-Career Researchers)",
+  "funder_ko": "한국연구재단 (기초연구사업, 신진연구)",
+  "amount_en": "KRW 90 million",
+  "amount_ko": "0.9억원"
+}

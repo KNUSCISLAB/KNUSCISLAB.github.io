@@ -12,7 +12,7 @@
     if (p === 'en' || p === 'ko') { store.set('lang', p); return p; }
     var s = store.get('lang');
     if (s === 'en' || s === 'ko') return s;
-    return /^ko\b/i.test(navigator.language || '') ? 'ko' : 'en';
+    return 'en';
   })();
   document.documentElement.lang = LANG;
   var PAGE = document.body.getAttribute('data-page');
@@ -108,11 +108,11 @@
   /* ---------- shared chrome ---------- */
   function renderHeader(site) {
     var logo = site && site.logo
-      ? '<img src="' + esc(site.logo) + '" alt="">'
+      ? '<img class="logo" src="' + esc(site.logo) + '" alt="">'
       : '<span class="mark" aria-hidden="true"><svg viewBox="0 0 26 26"><path d="M3 19C7 19 8 7 13 7S19 19 23 19" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></span>';
     var name = (site && site.short_name) || 'SCIS Lab';
     var uni = (site && loc(site, 'university')) || 'Kyungpook National University';
-    var links = [['research', 'research.html', 'nav_research'], ['people', 'people.html', 'nav_people'], ['publications', 'publications.html', 'nav_pubs'], ['news', 'news.html', 'nav_news']];
+    var links = [['research', 'research.html', 'nav_research'], ['professor', 'professor.html', 'nav_prof'], ['people', 'people.html', 'nav_people'], ['publications', 'publications.html', 'nav_pubs'], ['projects', 'projects.html', 'nav_projects'], ['news', 'news.html', 'nav_news']];
     var nav = links.map(function (l) {
       return '<a href="' + href(l[1]) + '"' + (PAGE === l[0] ? ' aria-current="page"' : '') + '>' + esc(t(l[2])) + '</a>';
     }).join('');
@@ -122,7 +122,7 @@
     nav += '<a class="lang" href="' + esc(langHref) + '" hreflang="' + (LANG === 'ko' ? 'en' : 'ko') + '" aria-label="' + esc(t('lang_label')) + '">' + esc(t('lang_switch')) + '</a>';
     fill('#site-header',
       '<div class="wrap bar">' +
-      '<a class="brand" href="' + href('index.html') + '">' + logo + '<span><strong>' + esc(name) + '</strong><small>' + esc(uni) + '</small></span></a>' +
+      '<a class="brand' + (site && site.logo ? ' has-logo' : '') + '" href="' + href('index.html') + '">' + logo + '<span>' + (site && site.logo ? '<strong class="sr-only">' + esc(name) + '</strong>' : '<strong>' + esc(name) + '</strong>') + '<small>' + esc(uni) + '</small></span></a>' +
       '<nav class="nav" id="nav" aria-label="Main">' + nav + '</nav>' +
       '<button class="icon-btn theme-btn" type="button"></button>' +
       '<button class="icon-btn menu-btn" type="button" aria-controls="nav" aria-expanded="false" aria-label="' + esc(t('menu')) + '"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5H17M3 10H17M3 15H17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>' +
@@ -182,11 +182,17 @@
   }
 
   /* ---------- publications helpers ---------- */
+  var PUB_TYPES = ['under_review', 'scie', 'esci', 'kci', 'other', 'intl_conf', 'domestic_conf'];
+  var JOURNAL_TYPES = ['scie', 'esci', 'kci', 'other'];
+  var PREFIX = { scie: 'J', esci: 'E', kci: 'K', other: 'O', intl_conf: 'C', domestic_conf: 'D' };
+  var CORR_ROLES = ['corresponding', 'co_corresponding', 'first_corresponding'];
+  function isJournal(p) { return JOURNAL_TYPES.indexOf(p.type) > -1; }
+  function isCorr(p) { return CORR_ROLES.indexOf(p.author_role) > -1 || p.corresponding === true; }
   function authorsHTML(p) {
-    return esc(p.authors || '').replace(/Suh,\s*D\.\*?/g, function () { return '<b>Suh, D.' + (p.corresponding ? '*' : '') + '</b>'; });
+    return esc(p.authors || '').replace(/Suh,\s*D\.\*?/g, function () { return '<b>Suh, D.' + (isCorr(p) ? '*' : '') + '</b>'; });
   }
   function authorsText(p) {
-    return String(p.authors || '').replace(/Suh,\s*D\.\*?/g, 'Suh, D.' + (p.corresponding ? '*' : ''));
+    return String(p.authors || '').replace(/Suh,\s*D\.\*?/g, 'Suh, D.' + (isCorr(p) ? '*' : ''));
   }
   function citation(p) {
     var s = authorsText(p) + ' (' + p.year + '). ' + p.title + '. ' + p.venue + (p.details ? ', ' + p.details : '') + '.';
@@ -195,13 +201,26 @@
     return s;
   }
   function paperLink(p) { return p.doi ? 'https://doi.org/' + p.doi : (p.link || ''); }
+  function pubMetrics(p) {
+    var parts = [];
+    if (p.published) parts.push(esc(t('published', { d: LANG === 'ko' ? String(p.published).replace(/online/g, '온라인') : p.published })));
+    if (isJournal(p) && p.type !== 'other') parts.push('<b>' + esc(p.type.toUpperCase()) + '</b>');
+    if (p.impact_factor) parts.push('IF ' + esc(p.impact_factor) + (p.jcr_year ? ' (JCR ' + esc(p.jcr_year) + ')' : ''));
+    if (p.quartile) parts.push('<b>' + esc(p.quartile) + '</b>');
+    if (p.jcr_top) parts.push(esc(t('jcr_top', { p: p.jcr_top })) + (p.jcr_category ? ' (' + esc(p.jcr_category) + (p.jcr_rank ? ' ' + esc(p.jcr_rank) : '') + ')' : ''));
+    if (p.metrics) parts.push(esc(p.metrics));
+    if (p.author_role && p.type !== 'under_review') parts.push(esc(t('role_' + p.author_role)));
+    return parts.length ? '<p class="metrics">' + parts.join('<span aria-hidden="true"> · </span>') + '</p>' : '';
+  }
   function pubItem(p, opts) {
     opts = opts || {};
     var thumb = p.thumbnail ? '<img class="thumb" src="' + esc(p.thumbnail) + '" alt="" loading="lazy">' : '';
     var foot = [];
-    if (p.metrics) foot.push('<span class="badge">' + esc(p.metrics) + '</span>');
     if (p.type === 'under_review') foot.push('<span class="badge warn">' + esc(t('under_review')) + (p.note ? ': ' + esc(p.note) : '') + '</span>');
-    else if (p.note) foot.push('<span class="badge warn">' + esc(p.note) + '</span>');
+    else {
+      if (p.status) foot.push('<span class="badge warn">' + esc(p.status) + '</span>');
+      if (p.note) foot.push('<span class="badge">' + esc(p.note) + '</span>');
+    }
     if (p.doi) foot.push('<a href="https://doi.org/' + esc(p.doi) + '" target="_blank" rel="noopener">' + esc(t('doi')) + '</a>');
     else if (p.link) foot.push('<a href="' + esc(p.link) + '" target="_blank" rel="noopener">' + esc(t('paper')) + '</a>');
     if (p.pdf) foot.push('<a href="' + esc(p.pdf) + '" target="_blank" rel="noopener">' + esc(t('pdf')) + '</a>');
@@ -209,9 +228,11 @@
     if (p.type !== 'under_review') foot.push('<button type="button" data-cite="' + esc(p._id) + '">' + esc(t('cite')) + '</button>');
     var venue = '<i>' + esc(p.venue) + '</i>' + (p.details ? ', ' + esc(p.details) : '') + (opts.showYear ? ', ' + esc(p.year) : '');
     var link = paperLink(p);
-    var title = link ? '<a href="' + esc(link) + '" target="_blank" rel="noopener" style="text-decoration:none">' + esc(p.title) + '</a>' : esc(p.title);
-    return '<li class="pub' + (thumb ? ' has-thumb' : '') + '">' + thumb + '<div><h3>' + title + '</h3>' +
-      '<p class="authors">' + authorsHTML(p) + '</p><p class="venue">' + venue + '</p>' +
+    var main = LANG === 'ko' && p.title_ko ? p.title_ko : p.title, alt = p.title_ko ? (main === p.title ? p.title_ko : p.title) : '';
+    var title = link ? '<a href="' + esc(link) + '" target="_blank" rel="noopener" style="text-decoration:none">' + esc(main) + '</a>' : esc(main);
+    return '<li class="pub' + (thumb ? ' has-thumb' : '') + '">' + thumb + '<div><h3>' + (p._label ? '<span class="label">[' + esc(p._label) + ']</span> ' : '') + title + '</h3>' +
+      (alt ? '<p class="alt-title">' + esc(alt) + '</p>' : '') +
+      '<p class="authors">' + authorsHTML(p) + '</p><p class="venue">' + venue + '</p>' + pubMetrics(p) +
       '<div class="pub-foot">' + foot.join('') + '</div></div></li>';
   }
   function bindCite(root, pubs) {
@@ -222,11 +243,19 @@
       copy(citation(p)).then(function () { toast(t('copied')); });
     });
   }
+  function pubMonth(p) { var m = /^\d{4}-(\d{2})/.exec(p.date || ''); return m ? +m[1] : 13; }
+  // Within a year, an optional "order" number wins (smaller first); entries without one come first as the newest.
+  function pubOrder(p) { return p.order ? +p.order : 0; }
   function sortPubs(list) {
-    var order = { under_review: 0, journal: 1, conference: 2, domestic: 3 };
     return list.slice().sort(function (a, b) {
-      return (b.year - a.year) || ((order[a.type] || 9) - (order[b.type] || 9)) || String(a.title).localeCompare(String(b.title));
+      return (b.year - a.year) || (pubOrder(a) - pubOrder(b)) || (pubMonth(b) - pubMonth(a)) || (PUB_TYPES.indexOf(a.type) - PUB_TYPES.indexOf(b.type)) || String(a.title).localeCompare(String(b.title));
     });
+  }
+  // Numbers such as [J1] are given newest first within each category, so new uploads number themselves.
+  function labelPubs(list) {
+    var sorted = sortPubs(list), n = {};
+    sorted.forEach(function (p) { if (PREFIX[p.type]) { n[p.type] = (n[p.type] || 0) + 1; p._label = PREFIX[p.type] + n[p.type]; } });
+    return sorted;
   }
   function sortNews(list) {
     return (list || []).slice().sort(function (a, b) { return dateKey(b.date).localeCompare(dateKey(a.date)); });
@@ -293,7 +322,7 @@
       '<p style="margin-top:20px"><a class="more" href="' + href('research.html') + '">' + esc(t('all_research')) + '</a></p></div>');
 
     var pubs = d.publications || [];
-    var journals = pubs.filter(function (p) { return p.type === 'journal'; });
+    var journals = pubs.filter(isJournal);
     var feat = sortPubs(pubs.filter(function (p) { return p.featured && p.type !== 'under_review'; }));
     if (feat.length < 3) feat = feat.concat(sortPubs(journals).filter(function (p) { return feat.indexOf(p) < 0; })).slice(0, 3);
     feat = feat.slice(0, 3);
@@ -302,7 +331,7 @@
         var visual = p.thumbnail ? '<img class="thumb" src="' + esc(p.thumbnail) + '" alt="" loading="lazy">' : glyph(p.pillar);
         return '<article class="fpub">' + visual + '<div><h3>' + esc(p.title) + '</h3><p class="muted" style="margin:0 0 2px">' + authorsHTML(p) + '</p>' +
           '<p style="margin:0 0 10px"><i>' + esc(p.venue) + '</i>, ' + esc(p.year) + '</p>' +
-          '<div class="pub-foot">' + (p.metrics ? '<span class="badge">' + esc(p.metrics) + '</span>' : '') +
+          '<div class="pub-foot">' + (p.impact_factor ? '<span class="badge">' + esc(p.type.toUpperCase()) + ' · IF ' + esc(p.impact_factor) + (p.quartile ? ' · ' + esc(p.quartile) : '') + '</span>' : '') +
           (paperLink(p) ? '<a href="' + esc(paperLink(p)) + '" target="_blank" rel="noopener">' + esc(t('doi')) + '</a>' : '') +
           (p.code ? '<a href="' + esc(p.code) + '" target="_blank" rel="noopener">' + esc(t('code')) + '</a>' : '') + '</div></div></article>';
       }).join('') + '</div>');
@@ -318,13 +347,15 @@
     document.title = t('research_title') + ' | ' + (site.short_name || 'SCIS Lab');
     fill('#page-head', '<div class="wrap"><h1>' + esc(t('research_title')) + '</h1><p>' + esc(t('research_page_lead')) + '</p></div>');
     var topics = (d.research || []).slice().sort(byOrder);
-    var pubs = sortPubs((d.publications || []).filter(function (p) { return p.type !== 'under_review'; }));
+    var pubs = labelPubs(d.publications || []).filter(function (p) { return p.type !== 'under_review'; });
     function topicCard(x) {
       return '<article class="topic-card">' + (x.image ? '<img src="' + esc(x.image) + '" alt="" loading="lazy">' : '') +
         '<h3>' + esc(loc(x, 'title')) + '</h3><p>' + esc(loc(x, 'summary')) + '</p>' + (x.keywords ? '<div class="kw">' + esc(x.keywords) + '</div>' : '') + '</article>';
     }
     function related(key, n) {
-      var list = pubs.filter(function (p) { return p.pillar === key; });
+      var list = pubs.filter(function (p) { return p.pillar === key; }).sort(function (a, b) {
+        return (b.year - a.year) || (PUB_TYPES.indexOf(a.type) - PUB_TYPES.indexOf(b.type)) || (pubOrder(a) - pubOrder(b));
+      });
       if (!list.length) return '';
       return '<h3 class="sub-h">' + esc(t('related_pubs')) + '</h3><ul>' + list.slice(0, n).map(function (p) { return pubItem(p, { showYear: true }); }).join('') + '</ul>' +
         (list.length > n ? '<p style="margin-top:12px"><a class="more" href="' + href('publications.html', { pillar: key }) + '">' + esc(t('show_all_n', { n: list.length })) + '</a></p>' : '');
@@ -344,41 +375,22 @@
             '<p class="muted" style="max-width:70ch">' + esc(loc(x, 'summary')) + '</p>' + (x.keywords ? '<p class="kw">' + esc(x.keywords) + '</p>' : '') + related(x.pillar, 5) + '</div>';
         }).join('') + '</div></section>';
     }
-    var now = new Date().toISOString().slice(0, 7);
-    var projects = (d.projects || []).slice().sort(function (a, b) { return dateKey(b.start).localeCompare(dateKey(a.start)); });
-    function projItem(p) {
-      return '<li><time>' + fmtDate(p.start) + ' – ' + (p.end ? fmtDate(p.end) : esc(t('present'))) + '</time><div><b>' + esc(loc(p, 'title')) + '</b><span>' +
-        esc([loc(p, 'funder'), loc(p, 'role')].filter(Boolean).join(', ')) + '</span></div></li>';
-    }
-    var ongoing = projects.filter(function (p) { return !p.end || dateKey(p.end) >= dateKey(now); });
-    var done = projects.filter(function (p) { return ongoing.indexOf(p) < 0; });
-    if (projects.length) {
-      html += '<section class="sec" id="projects"><div class="wrap"><div class="sec-head"><h2>' + esc(t('projects')) + '</h2></div>' +
-        (ongoing.length ? '<h3 class="sub-h" style="margin-top:0">' + esc(t('ongoing')) + '</h3><ul class="timeline">' + ongoing.map(projItem).join('') + '</ul>' : '') +
-        (done.length ? '<h3 class="sub-h">' + esc(t('completed')) + '</h3><ul class="timeline">' + done.map(projItem).join('') + '</ul>' : '') + '</div></section>';
-    }
-    var programs = (d.programs || []).slice().sort(function (a, b) { return dateKey(b.start).localeCompare(dateKey(a.start)); });
-    if (programs.length) {
-      html += '<section class="sec" id="programs"><div class="wrap"><div class="sec-head"><h2>' + esc(t('programs')) + '</h2></div><ul class="timeline">' +
-        programs.map(function (p) {
-          return '<li><time>' + fmtDate(p.start) + ' – ' + (p.end ? fmtDate(p.end) : esc(t('present'))) + '</time><div><b>' + esc(loc(p, 'name')) + '</b><span>' + esc(loc(p, 'role')) + '</span></div></li>';
-        }).join('') + '</ul></div></section>';
-    }
     fill('#content', html);
     bindCite($('#content'), d.publications);
     if (location.hash) { var el = document.getElementById(location.hash.slice(1)); if (el) el.scrollIntoView(); }
   };
 
-  pages.people = function (d) {
+  pages.professor = function (d) {
     var site = d.site || {}, pr = d.professor || {};
-    document.title = t('people_title') + ' | ' + (site.short_name || 'SCIS Lab');
-    fill('#page-head', '<div class="wrap"><h1>' + esc(t('people_title')) + '</h1><p>' + esc(t('people_lead')) + '</p></div>');
+    document.title = t('prof_title') + ' | ' + (site.short_name || 'SCIS Lab');
+    fill('#page-head', '<div class="wrap"><h1>' + esc(t('prof_title')) + '</h1><p>' + esc(t('prof_lead')) + '</p></div>');
     var depts = (LANG === 'ko' && pr.departments_ko && pr.departments_ko.length ? pr.departments_ko : pr.departments_en) || [];
     var links = [];
     if (pr.scholar_url) links.push('<a class="btn ghost" href="' + esc(pr.scholar_url) + '" target="_blank" rel="noopener">' + esc(t('scholar')) + '</a>');
     if (pr.orcid_url) links.push('<a class="btn ghost" href="' + esc(pr.orcid_url) + '" target="_blank" rel="noopener">' + esc(t('orcid')) + '</a>');
     if (pr.cv) links.push('<a class="btn ghost" href="' + esc(pr.cv) + '" target="_blank" rel="noopener">' + esc(t('cv')) + '</a>');
     var talks = sortNews(d.talks), press = sortNews(d.press);
+    var acts = (LANG === 'ko' && pr.activities_ko && pr.activities_ko.length ? pr.activities_ko : pr.activities) || [];
     var prof = '<section class="wrap prof" aria-labelledby="prof-name">' +
       '<div class="photo">' + (pr.photo ? '<img src="' + esc(pr.photo) + '" alt="' + esc(loc(pr, 'name')) + '">' : esc(initials(pr.name_en || 'Dongjun Suh'))) + '</div>' +
       '<div><p class="muted" style="margin:0 0 4px">' + esc(t('professor')) + '</p><h2 id="prof-name">' + esc(loc(pr, 'name')) + '</h2>' +
@@ -386,16 +398,25 @@
       '<dl class="contact-list">' +
       (pr.email ? '<div><dt>Email</dt><dd><a href="mailto:' + esc(pr.email) + '">' + esc(pr.email) + '</a></dd></div>' : '') +
       (pr.phone ? '<div><dt>Tel</dt><dd>' + esc(pr.phone) + '</dd></div>' : '') +
-      (loc(pr, 'office') ? '<div><dt>Office</dt><dd>' + esc(loc(pr, 'office')) + '</dd></div>' : '') +
+      (loc(pr, 'office') ? '<div class="wide"><dt>Office</dt><dd>' + esc(loc(pr, 'office')).replace(/\n/g, '<br>') + '</dd></div>' : '') +
       '</dl>' + (links.length ? '<div class="actions" style="margin-bottom:20px">' + links.join('') + '</div>' : '') +
       '<div class="bio"><h3 class="sub-h" style="margin-top:8px">' + esc(t('bio')) + '</h3>' + paras(loc(pr, 'bio')) + '</div>' +
-      (pr.activities && pr.activities.length ? '<details class="more-box"><summary>' + esc(t('activities')) + '</summary><ul>' + pr.activities.map(function (a) { return '<li>' + esc(a) + '</li>'; }).join('') + '</ul></details>' : '') +
+      (pr.awards && pr.awards.length ? '<details class="more-box" open><summary>' + esc(t('awards')) + ' (' + pr.awards.length + ')</summary><ul>' + sortNews(pr.awards).map(function (a) {
+        return '<li>' + fmtDate(a.date) + '. ' + esc(loc(a, 'title')) + '</li>'; }).join('') + '</ul></details>' : '') +
+      (acts.length ? '<details class="more-box"><summary>' + esc(t('activities')) + '</summary><ul>' + acts.map(function (a) { return '<li>' + esc(a) + '</li>'; }).join('') + '</ul></details>' : '') +
       (talks.length ? '<details class="more-box"><summary>' + esc(t('talks')) + ' (' + talks.length + ')</summary><ul>' + talks.map(function (x) {
         return '<li>' + fmtDate(x.date) + '. ' + esc(x.title) + (x.venue ? ' <span>(' + esc(x.venue) + ')</span>' : '') + '</li>'; }).join('') + '</ul></details>' : '') +
       (press.length ? '<details class="more-box"><summary>' + esc(t('press')) + ' (' + press.length + ')</summary><ul>' + press.map(function (x) {
         var tt = x.url ? '<a href="' + esc(x.url) + '" target="_blank" rel="noopener">' + esc(x.title) + '</a>' : esc(x.title);
         return '<li>' + fmtDate(x.date) + '. ' + tt + (x.source ? ' <span>(' + esc(x.source) + ')</span>' : '') + '</li>'; }).join('') + '</ul></details>' : '') +
       '</div></section>';
+    fill('#content', prof);
+  };
+
+  pages.people = function (d) {
+    var site = d.site || {};
+    document.title = t('people_title') + ' | ' + (site.short_name || 'SCIS Lab');
+    fill('#page-head', '<div class="wrap"><h1>' + esc(t('people_title')) + '</h1><p>' + esc(t('people_lead')) + '</p></div>');
     var people = (d.people || []).slice().sort(function (a, b) { return (a.order || 50) - (b.order || 50) || String(a.name_en).localeCompare(String(b.name_en)); });
     function card(p) {
       var primary = loc(p, 'name'), secondary = LANG === 'ko' ? (p.name_ko ? p.name_en : '') : p.name_ko;
@@ -414,20 +435,24 @@
     var alumni = people.filter(function (p) { return p.role === 'alumni'; });
     if (alumni.length) groups += '<section class="sec"><div class="wrap"><div class="sec-head"><h2>' + esc(t('role_alumni')) + '</h2><p>' + alumni.length + '</p></div><ul class="alumni-grid">' +
       alumni.map(function (p) { return '<li><b>' + esc(loc(p, 'name')) + '</b><span>' + esc(p.note || '') + '</span></li>'; }).join('') + '</ul></div></section>';
-    fill('#content', prof + groups);
+    fill('#content', groups);
   };
 
   pages.publications = function (d) {
     var site = d.site || {};
     document.title = t('pubs_title') + ' | ' + (site.short_name || 'SCIS Lab');
-    var pubs = sortPubs(d.publications || []), patents = (d.patents || []).slice().sort(function (a, b) { return dateKey(b.date).localeCompare(dateKey(a.date)); });
+    var pubs = labelPubs(d.publications || []);
+    var patents = (d.patents || []).slice().sort(function (a, b) { return ((a.order || 0) - (b.order || 0)) || dateKey(b.date || b.application_date).localeCompare(dateKey(a.date || a.application_date)); });
     var count = function (f) { return pubs.filter(f).length; };
-    var nPat = patents.filter(function (p) { return p.kind !== 'program'; }).length, nProg = patents.length - nPat;
-    fill('#page-head', '<div class="wrap"><h1>' + esc(t('pubs_title')) + '</h1><p>' + esc(t('pubs_lead')) + '</p>' +
-      '<div class="stats"><div><b>' + count(function (p) { return p.type === 'journal'; }) + '</b>' + esc(t('stat_journals')) + '</div>' +
-      '<div><b>' + count(function (p) { return p.type === 'under_review'; }) + '</b>' + esc(t('stat_review')) + '</div>' +
-      '<div><b>' + nPat + '</b>' + esc(t('stat_patents')) + '</div><div><b>' + nProg + '</b>' + esc(t('stat_programs')) + '</div></div></div>');
-    var types = ['journal', 'under_review', 'conference', 'domestic'].filter(function (x) { return count(function (p) { return p.type === x; }); });
+    var byType = function (x) { return count(function (p) { return p.type === x; }); };
+    var nPat = patents.filter(function (p) { return p.kind === 'patent_kr' || p.kind === 'patent_us'; }).length;
+    var nProg = patents.filter(function (p) { return p.kind === 'program'; }).length;
+    var stats = [['scie', 'stat_scie'], ['esci', 'stat_esci'], ['kci', 'stat_kci'], ['intl_conf', 'stat_intl'], ['domestic_conf', 'stat_domestic']]
+      .filter(function (x) { return byType(x[0]); }).map(function (x) { return '<div><b>' + byType(x[0]) + '</b>' + esc(t(x[1])) + '</div>'; });
+    if (nPat) stats.push('<div><b>' + nPat + '</b>' + esc(t('stat_patents')) + '</div>');
+    if (nProg) stats.push('<div><b>' + nProg + '</b>' + esc(t('stat_programs')) + '</div>');
+    fill('#page-head', '<div class="wrap"><h1>' + esc(t('pubs_title')) + '</h1><p>' + esc(t('pubs_lead')) + '</p><div class="stats">' + stats.join('') + '</div></div>');
+    var types = PUB_TYPES.filter(byType);
     var pillars = ['energy', 'industrial', 'climate', 'risk', 'other'].filter(function (x) { return count(function (p) { return p.pillar === x; }); });
     var years = pubs.map(function (p) { return p.year; }).filter(function (y, i, a) { return a.indexOf(y) === i; }).sort(function (a, b) { return b - a; });
     var st = { q: params.get('q') || '', type: params.get('type') || 'all', pillar: params.get('pillar') || 'all', year: params.get('year') || 'all' };
@@ -438,32 +463,39 @@
       '<label class="sr-only" for="year">Year</label><select id="year" class="select"><option value="all">' + esc(t('year_all')) + '</option>' +
       years.map(function (y) { return '<option value="' + y + '"' + (String(st.year) === String(y) ? ' selected' : '') + '>' + y + '</option>'; }).join('') + '</select></div>' +
       '<div class="chip-row" role="group" aria-label="Type"><button class="chip" data-type="all">' + esc(t('all')) + '</button>' +
-      types.map(function (x) { return '<button class="chip" data-type="' + x + '">' + esc(t('type_' + x)) + '</button>'; }).join('') + '</div>' +
+      types.map(function (x) { return '<button class="chip" data-type="' + x + '">' + esc(t('chip_' + x)) + '</button>'; }).join('') + '</div>' +
       '<div class="count" aria-live="polite"></div></div>');
     var listEl = $('#pub-list');
+    function byYear(list, tag) {
+      var html = '', lastY = null, buf = '';
+      list.forEach(function (p) {
+        if (p.year !== lastY) { if (buf) html += buf + '</ul>'; buf = '<' + tag + ' class="year-h">' + esc(p.year) + '</' + tag + '><ul>'; lastY = p.year; }
+        buf += pubItem(p);
+      });
+      return html + (buf ? buf + '</ul>' : '');
+    }
     function render() {
       var q = st.q.trim().toLowerCase();
       var shown = pubs.filter(function (p) {
         if (st.type !== 'all' && p.type !== st.type) return false;
         if (st.pillar !== 'all' && p.pillar !== st.pillar) return false;
         if (st.year !== 'all' && String(p.year) !== String(st.year)) return false;
-        if (q && (p.title + ' ' + p.authors + ' ' + p.venue + ' ' + (p.details || '')).toLowerCase().indexOf(q) < 0) return false;
+        if (q && (p.title + ' ' + (p.title_ko || '') + ' ' + p.authors + ' ' + p.venue + ' ' + (p.details || '')).toLowerCase().indexOf(q) < 0) return false;
         return true;
       });
       document.querySelectorAll('.chip[data-type]').forEach(function (c) { c.setAttribute('aria-pressed', String(c.getAttribute('data-type') === st.type)); });
       $('.count').textContent = t('showing', { n: shown.length, total: pubs.length });
       if (!shown.length) {
         listEl.innerHTML = '<p class="status" style="margin-top:24px">' + esc(t('no_results')) + ' <button class="btn ghost" type="button" data-clear>' + esc(t('clear_filters')) + '</button></p>';
+      } else if (st.type !== 'all') {
+        listEl.innerHTML = st.type === 'under_review' ? '<ul>' + shown.map(function (p) { return pubItem(p); }).join('') + '</ul>' : byYear(shown, 'h2');
       } else {
-        var html = '', review = shown.filter(function (p) { return p.type === 'under_review'; }), rest = shown.filter(function (p) { return p.type !== 'under_review'; });
-        if (review.length) html += '<h2 class="year-h">' + esc(t('under_review')) + '</h2><ul>' + review.map(function (p) { return pubItem(p); }).join('') + '</ul>';
-        var lastY = null, buf = '';
-        rest.forEach(function (p) {
-          if (p.year !== lastY) { if (buf) html += buf + '</ul>'; buf = '<h2 class="year-h">' + esc(p.year) + '</h2><ul>'; lastY = p.year; }
-          buf += pubItem(p);
-        });
-        if (buf) html += buf + '</ul>';
-        listEl.innerHTML = html;
+        listEl.innerHTML = types.map(function (x) {
+          var list = shown.filter(function (p) { return p.type === x; });
+          if (!list.length) return '';
+          return '<section class="type-block"><h2 class="type-h">' + esc(t('type_' + x)) + ' <span>' + list.length + '</span></h2>' +
+            (x === 'under_review' ? '<ul>' + list.map(function (p) { return pubItem(p); }).join('') + '</ul>' : byYear(list, 'h3')) + '</section>';
+        }).join('');
       }
       var q2 = new URLSearchParams();
       if (LANG === 'ko') q2.set('lang', 'ko');
@@ -481,15 +513,62 @@
     bindCite(listEl, pubs);
     render();
     if (patents.length) {
-      var groups = [['patent_intl', 'patent_intl'], ['patent_kr', 'patent_kr'], ['program', 'program']];
+      var groups = [['patent_kr', 'PK'], ['patent_us', 'PU'], ['pending', 'PA'], ['program', 'SW']];
       fill('#patents', '<div class="wrap"><div class="sec-head"><h2>' + esc(t('patents')) + '</h2></div>' + groups.map(function (g) {
         var list = patents.filter(function (p) { return p.kind === g[0]; });
         if (!list.length) return '';
-        return '<h3 class="sub-h">' + esc(t(g[1])) + '</h3>' + list.map(function (p) {
-          return '<div class="patent"><h3>' + esc(p.title) + '</h3><p>' + [p.number ? esc(p.number) : '', p.date ? fmtDate(p.date, true) : '', p.status ? esc(t(p.status)) : '', p.inventors ? esc(t('inventors')) + ': ' + esc(p.inventors) : ''].filter(Boolean).join(', ') + '</p></div>';
+        return '<h3 class="sub-h">' + esc(t('pat_' + g[0])) + ' <span class="muted">' + list.length + '</span></h3>' + list.map(function (p, i) {
+          var meta = [];
+          if (p.number) meta.push((p.kind === 'patent_kr' ? 'KR ' : '') + esc(p.number) + (p.date ? ' (' + esc(t('registered_on', { d: p.date })) + ')' : ''));
+          if (p.application) meta.push(esc(t('application')) + ' ' + (p.kind === 'pending' && p.country === 'KR' ? 'KR ' : '') + esc(p.application) + (p.application_date ? ' (' + esc(p.application_date) + ')' : ''));
+          if (p.publication) meta.push(esc(t('publication_no')) + ' ' + esc(p.publication));
+          var status = loc(p, 'status'), inv = loc(p, 'inventors');
+          return '<div class="patent"><h3><span class="label">[' + g[1] + (i + 1) + ']</span> ' + esc(loc(p, 'title')) + '</h3><p>' + meta.join(' · ') + '</p>' +
+            ((status || inv) ? '<p>' + [status ? '<span class="badge warn">' + esc(status) + '</span>' : '', inv ? esc(t('inventors')) + ': ' + esc(inv) : ''].filter(Boolean).join(' ') + '</p>' : '') + '</div>';
         }).join('');
       }).join('') + '</div>');
     }
+  };
+
+  pages.projects = function (d) {
+    var site = d.site || {};
+    document.title = t('projects_title') + ' | ' + (site.short_name || 'SCIS Lab');
+    fill('#page-head', '<div class="wrap"><h1>' + esc(t('projects_title')) + '</h1><p>' + esc(t('projects_lead')) + '</p></div>');
+    var now = new Date().toISOString().slice(0, 7);
+    var projects = (d.projects || []).slice().sort(function (a, b) { return dateKey(b.start).localeCompare(dateKey(a.start)); });
+    function period(p) { return fmtDate(p.start) + ' – ' + (p.end ? fmtDate(p.end) : esc(t('present'))); }
+    function projItem(p) {
+      var on = !p.end || dateKey(p.end) >= dateKey(now);
+      return '<li><time>' + period(p) + (on ? '<span class="badge">' + esc(t('ongoing')) + '</span>' : '') + '</time><div><span class="role">' + esc(loc(p, 'role')) + '</span><b>' + esc(loc(p, 'title')) + '</b><span>' +
+        esc([loc(p, 'funder'), loc(p, 'amount')].filter(Boolean).join(' · ')) + '</span></div></li>';
+    }
+    var html = '';
+    [['pi', 'proj_pi'], ['co', 'proj_co']].forEach(function (g) {
+      var list = projects.filter(function (p) { return (p.group || 'pi') === g[0]; });
+      if (list.length) html += '<section class="sec"><div class="wrap"><div class="sec-head"><h2>' + esc(t(g[1])) + '</h2><p>' + list.length + '</p></div><ul class="timeline">' + list.map(projItem).join('') + '</ul></div></section>';
+    });
+    var programs = (d.programs || []).slice().sort(function (a, b) { return dateKey(b.start).localeCompare(dateKey(a.start)); });
+    if (programs.length) {
+      html += '<section class="sec" id="programs"><div class="wrap"><div class="sec-head"><h2>' + esc(t('programs')) + '</h2></div><ul class="timeline">' +
+        programs.map(function (p) {
+          return '<li><time>' + period(p) + '</time><div><b>' + esc(loc(p, 'name')) + '</b><span>' + esc(loc(p, 'role')) + '</span></div></li>';
+        }).join('') + '</ul></div></section>';
+    }
+    var col = d.collaborations || [];
+    if (col.length) {
+      var countries = [];
+      col.forEach(function (c) { if (countries.indexOf(c.country_en) < 0) countries.push(c.country_en); });
+      html += '<section class="sec" id="collaboration"><div class="wrap"><div class="sec-head"><h2>' + esc(t('collab')) + '</h2></div><p class="muted" style="max-width:70ch">' +
+        esc(t('collab_lead', { c: countries.length, i: col.length })) + '</p><div class="collab-grid">' + countries.map(function (name) {
+          var list = col.filter(function (c) { return c.country_en === name; });
+          return '<div class="collab"><h3>' + esc(loc(list[0], 'country')) + ' <span>' + list.length + '</span></h3><ul>' + list.map(function (c) {
+            var note = loc(c, 'note');
+            return '<li>' + esc(c.name) + (note ? '<span>' + esc(note) + '</span>' : '') + '</li>';
+          }).join('') + '</ul></div>';
+        }).join('') + '</div></div></section>';
+    }
+    fill('#content', html);
+    if (location.hash) { var el = document.getElementById(location.hash.slice(1)); if (el) el.scrollIntoView(); }
   };
 
   pages.news = function (d) {
@@ -526,8 +605,10 @@
   /* ---------- boot ---------- */
   var NEEDS = {
     home: ['site', 'research', 'publications', 'news', 'meta'],
-    research: ['site', 'research', 'publications', 'projects', 'programs', 'meta'],
-    people: ['site', 'professor', 'people', 'talks', 'press', 'meta'],
+    research: ['site', 'research', 'publications', 'meta'],
+    projects: ['site', 'projects', 'programs', 'collaborations', 'meta'],
+    professor: ['site', 'professor', 'talks', 'press', 'meta'],
+    people: ['site', 'people', 'meta'],
     publications: ['site', 'publications', 'patents', 'meta'],
     news: ['site', 'news', 'meta'],
     notfound: ['site', 'meta']

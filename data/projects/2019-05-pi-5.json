@@ -1,0 +1,13 @@
+{
+  "group": "pi",
+  "start": "2019-05",
+  "end": "2022-04",
+  "role_en": "PI",
+  "role_ko": "연구책임자",
+  "title_en": "Data fusion algorithms for energy demand forecasting",
+  "title_ko": "에너지 수요예측을 위한 데이터 결합 알고리즘 개발",
+  "funder_en": "KEPCO Research Institute",
+  "funder_ko": "한국전력공사 전력연구원",
+  "amount_en": "KRW 150 million",
+  "amount_ko": "1.5억원"
+}

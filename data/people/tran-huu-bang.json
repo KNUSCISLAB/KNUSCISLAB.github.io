@@ -1,12 +1,12 @@
 {
   "name_en": "Tran Huu Bang",
   "name_ko": "",
-  "role": "ms",
-  "note": "",
+  "role": "alumni",
+  "note": "MS 2026",
   "email": "tranhuubang@knu.ac.kr",
-  "photo": "",
+  "photo": "assets/img/people/tran-huu-bang.jpg",
   "interests_en": "Machine learning, deep learning",
   "interests_ko": "",
   "homepage": "",
-  "order": 8
+  "order": 111
 }

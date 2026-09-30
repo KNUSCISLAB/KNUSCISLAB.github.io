@@ -1,0 +1,16 @@
+{
+  "kind": "patent_us",
+  "order": 1,
+  "country": "US",
+  "title_en": "Solar Energy Management Method and System Using Deep Reinforcement Learning",
+  "title_ko": "심층강화학습을 이용한 태양광 에너지 관리방법 및 시스템 (미국)",
+  "number": "US 12,372,931 B2",
+  "date": "2025-07-29",
+  "application": "US 17/900,868",
+  "application_date": "2022-09-01",
+  "publication": "",
+  "status_en": "",
+  "status_ko": "",
+  "inventors_en": "Dongjun Suh, Geonkyo Hong, Minjeong Sim",
+  "inventors_ko": "서동준, 홍건교, 심민정"
+}

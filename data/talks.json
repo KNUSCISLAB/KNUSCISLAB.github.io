@@ -1,23 +1,28 @@
 [
   {
     "date": "2025-05",
-    "title": "\"지속가능한 미래를 위한 에너지 AI\" (Energy AI for a sustainable future), graduate seminar",
+    "title": "Energy AI for a sustainable future (지속가능한 미래를 위한 에너지 AI), graduate seminar",
     "venue": "KAIST"
   },
   {
+    "date": "2024",
+    "title": "Smart Grid and AI, International Energy Conference",
+    "venue": "Gyeongsangbuk-do, Andong"
+  },
+  {
     "date": "2022-02",
-    "title": "메타버스 환경산림분야 전문가 특강",
-    "venue": "경상북도 (Gyeongsangbuk-do)"
+    "title": "Expert lecture on the metaverse for the environment and forestry sector (메타버스 환경산림분야 전문가 특강)",
+    "venue": "Gyeongsangbuk-do Provincial Government"
   },
   {
     "date": "2021-11",
-    "title": "생태문명컨퍼런스 (Ecological Civilization Conference)",
-    "venue": "전라북도 / 전북연구원"
+    "title": "Ecological Civilization Conference (생태문명컨퍼런스)",
+    "venue": "Jeollabuk-do / Jeonbuk Research Institute"
   },
   {
     "date": "2021-08",
-    "title": "\"AI 기반 건축물 에너지 효율화: AI 및 빅데이터 기반의 건물에너지 최적화 연구\", 대도약 정책포럼",
-    "venue": "전북연구원"
+    "title": "AI-based building energy efficiency: building energy optimization with AI and big data (AI 기반 건축물에너지효율화), Great Leap Policy Forum",
+    "venue": "Jeonbuk Research Institute"
   },
   {
     "date": "2018-12",
@@ -28,15 +33,5 @@
     "date": "2018-02",
     "title": "Disaster response for urban areas, 2018 City of Tomorrow Symposium",
     "venue": "KAIST"
-  },
-  {
-    "date": "2017-07",
-    "title": "Big data for net zero energy buildings",
-    "venue": "KAIST"
-  },
-  {
-    "date": "2017-05",
-    "title": "Disaster resilience and risk analysis, Master and Doctoral Seminar",
-    "venue": "Dept. of Civil and Environmental Engineering, KAIST"
   }
 ]

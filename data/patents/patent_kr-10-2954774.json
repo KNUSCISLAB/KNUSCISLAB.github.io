@@ -1,0 +1,16 @@
+{
+  "kind": "patent_kr",
+  "order": 1,
+  "country": "KR",
+  "title_en": "AI model system for forecasting solar PV generation from multiple data sources, and control method thereof",
+  "title_ko": "다중 데이터에 기반한 태양광 발전의 예측을 위한 인공지능 모델 시스템 및 그 제어방법",
+  "number": "10-2954774",
+  "date": "2026-04-15",
+  "application": "10-2023-0004530",
+  "application_date": "2023-01-12",
+  "publication": "",
+  "status_en": "",
+  "status_ko": "",
+  "inventors_en": "Dongjun Suh, Bowoo Kim, Junhwa Hwang",
+  "inventors_ko": "서동준, 김보우, 황준화"
+}

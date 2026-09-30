@@ -1,9 +1,16 @@
 {
   "kind": "program",
-  "title": "전력 소비량 결측 데이터 보간 프로그램",
-  "number": "제 C-2023-006786 호",
+  "order": 3,
+  "country": "KR",
+  "title_en": "Program for imputing missing electricity consumption data",
+  "title_ko": "전력 소비량 결측 데이터 보간 프로그램",
+  "number": "C-2023-006786",
+  "date": "2023-01-18",
   "application": "",
-  "inventors": "서동준, 황준화, 김보우",
-  "date": "",
-  "status": "registered"
+  "application_date": "",
+  "publication": "",
+  "status_en": "",
+  "status_ko": "",
+  "inventors_en": "Dongjun Suh, Junhwa Hwang, Bowoo Kim",
+  "inventors_ko": "서동준, 황준화, 김보우"
 }

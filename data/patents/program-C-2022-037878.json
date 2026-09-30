@@ -1,9 +1,16 @@
 {
   "kind": "program",
-  "title": "ROI와 주변 영역을 활용한 multisource data 기반 태양광 발전량 예측",
-  "number": "제 C-2022-037878 호",
+  "order": 4,
+  "country": "KR",
+  "title_en": "Multisource data-based solar PV generation prediction using the ROI and surrounding area",
+  "title_ko": "ROI와 주변 영역을 활용한 multisource data 기반 태양광 발전량 예측",
+  "number": "C-2022-037878",
+  "date": "2022-10-05",
   "application": "",
-  "inventors": "서동준, 김보우, 황준화",
-  "date": "",
-  "status": "registered"
+  "application_date": "",
+  "publication": "",
+  "status_en": "",
+  "status_ko": "",
+  "inventors_en": "Dongjun Suh, Bowoo Kim, Junhwa Hwang",
+  "inventors_ko": "서동준, 김보우, 황준화"
 }

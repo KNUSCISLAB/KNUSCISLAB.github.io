@@ -1,0 +1,16 @@
+{
+  "kind": "patent_kr",
+  "order": 4,
+  "country": "KR",
+  "title_en": "Machine fault diagnosis method and system based on a high-performance deep neural network using clustering analysis of time-series features",
+  "title_ko": "시계열 특성의 군집화 분석을 사용한 고성능 심층 신경망 기반의 기계 고장 진단 방법 및 시스템",
+  "number": "10-2374817",
+  "date": "2022-03-11",
+  "application": "10-2021-0029428",
+  "application_date": "2021-03-05",
+  "publication": "",
+  "status_en": "",
+  "status_ko": "",
+  "inventors_en": "Dongjun Suh, Geonkyo Hong, Junghoon Choi",
+  "inventors_ko": "서동준, 홍건교, 최정훈"
+}

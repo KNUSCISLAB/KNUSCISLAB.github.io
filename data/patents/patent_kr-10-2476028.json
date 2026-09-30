@@ -1,0 +1,16 @@
+{
+  "kind": "patent_kr",
+  "order": 3,
+  "country": "KR",
+  "title_en": "Solar energy management method and system using deep reinforcement learning",
+  "title_ko": "심층강화학습을 이용한 태양광 에너지 관리방법 및 그 시스템",
+  "number": "10-2476028",
+  "date": "2022-12-06",
+  "application": "10-2022-0053254",
+  "application_date": "2022-04-29",
+  "publication": "",
+  "status_en": "",
+  "status_ko": "",
+  "inventors_en": "Dongjun Suh, Geonkyo Hong, Minjeong Sim",
+  "inventors_ko": "서동준, 홍건교, 심민정"
+}

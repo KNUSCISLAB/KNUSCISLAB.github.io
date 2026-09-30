@@ -52,6 +52,10 @@ button { font: inherit; }
 .brand strong { font-weight: 600; font-size: 1.05rem; display: block; }
 .brand small { display: block; font-size: .75rem; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .brand img { height: 40px; width: auto; display: block; }
+.brand img.logo { height: 52px; }
+@media (max-width: 760px) { .brand img.logo { height: 40px; } }
+@media (min-width: 761px) and (max-width: 1100px) { .brand.has-logo small { display: none; } }
+.contact-list .wide { grid-column: 1 / -1; }
 .mark { flex: none; width: 38px; height: 38px; border-radius: 9px; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; }
 .mark svg { width: 26px; height: 26px; }
 .nav { margin-left: auto; display: flex; align-items: center; gap: 2px; }
@@ -214,9 +218,25 @@ html[lang="ko"] .hero h1 { max-width: 22ch; line-height: 1.2; }
 .pub-foot { display: flex; gap: 6px 8px; flex-wrap: wrap; align-items: center; }
 .pub-foot a, .pub-foot button { display: inline-flex; align-items: center; min-height: 32px; padding: 0 11px; border: 1px solid var(--line); border-radius: 6px; font-size: .84rem; text-decoration: none; background: var(--surface); color: var(--ink); cursor: pointer; }
 .pub-foot a:hover, .pub-foot button:hover { border-color: var(--accent); color: var(--accent); }
+.pub .label, .patent .label { color: var(--accent); font-variant-numeric: tabular-nums; font-weight: 600; }
+.pub .alt-title { color: var(--muted); font-size: .92rem; margin: -2px 0 4px; }
+.pub .metrics { font-size: .86rem; color: var(--muted); margin: -4px 0 8px; }
+.pub .metrics b { color: var(--ink); font-weight: 600; }
+.type-block { margin-top: 12px; }
+.type-h { font-size: 1.5rem; font-weight: 600; margin: 48px 0 0; padding-bottom: 8px; border-bottom: 2px solid var(--ink); }
+.type-h span { color: var(--muted); font-weight: 400; font-size: 1rem; margin-left: 6px; }
+.type-block .year-h { font-size: 1.08rem; margin-top: 24px; }
+.timeline .role { display: block; font-size: .82rem; color: var(--accent); font-weight: 600; }
+.timeline time .badge { display: block; width: max-content; margin-top: 6px; }
+.collab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin-top: 20px; }
+.collab { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 18px; }
+.collab h3 { font-size: 1rem; font-weight: 600; margin-bottom: 8px; }
+.collab h3 span { color: var(--muted); font-weight: 400; margin-left: 4px; }
+.collab li { font-size: .92rem; padding: 4px 0; }
+.collab li span { display: block; color: var(--accent); font-size: .84rem; }
 .patent { padding: 16px 0; border-top: 1px solid var(--line); }
 .patent h3 { font-size: 1rem; font-weight: 600; margin-bottom: 4px; }
-.patent p { margin: 0; color: var(--muted); font-size: .92rem; }
+.patent p { margin: 0 0 4px; color: var(--muted); font-size: .92rem; }
 @media (max-width: 600px) {
   .pub.has-thumb { grid-template-columns: 1fr; }
   .pub .thumb { width: 100%; max-width: 320px; }
@@ -248,7 +268,7 @@ html[lang="ko"] .hero h1 { max-width: 22ch; line-height: 1.2; }
 .prof { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 40px; padding-top: 48px; }
 .prof .photo, .avatar { background: var(--tint); color: var(--accent); display: grid; place-items: center; font-weight: 600; overflow: hidden; }
 .prof .photo { width: 240px; aspect-ratio: 3/4; border-radius: 12px; font-size: 3rem; }
-.prof .photo img, .avatar img { width: 100%; height: 100%; object-fit: cover; }
+.prof .photo img, .avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; }
 .prof h2 { font-size: 1.9rem; font-weight: 600; margin-bottom: 4px; }
 .prof .title { color: var(--accent); font-weight: 600; margin-bottom: 12px; }
 .prof .depts { color: var(--muted); margin-bottom: 16px; }

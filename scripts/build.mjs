@@ -9,8 +9,8 @@ import path from 'node:path';
 const ROOT = process.cwd();
 const OUT = path.join(ROOT, '_site');
 const COLLECTIONS = ['publications', 'patents', 'news', 'people', 'research', 'projects', 'programs'];
-const SINGLE_FILES = ['site.json', 'professor.json', 'talks.json', 'press.json'];
-const COPY = ['index.html', 'research.html', 'people.html', 'publications.html', 'news.html', '404.html', 'robots.txt', 'sitemap.xml', 'assets'];
+const SINGLE_FILES = ['site.json', 'professor.json', 'talks.json', 'press.json', 'collaborations.json'];
+const COPY = ['index.html', 'research.html', 'professor.html', 'people.html', 'publications.html', 'projects.html', 'news.html', '404.html', 'robots.txt', 'sitemap.xml', 'assets'];
 
 let errors = 0;
 fs.rmSync(OUT, { recursive: true, force: true });
