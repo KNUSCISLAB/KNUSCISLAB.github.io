@@ -1,0 +1,10 @@
+{
+  "pillar": "industrial",
+  "order": 1,
+  "title_en": "Industrial anomaly detection",
+  "title_ko": "산업 이상 탐지",
+  "summary_en": "One model that detects anomalies across many product types and defect classes.",
+  "summary_ko": "여러 제품과 결함 유형을 하나의 모델로 탐지하는 방법을 연구합니다.",
+  "keywords": "Multi-class AD, tokenization",
+  "image": ""
+}

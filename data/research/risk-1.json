@@ -1,0 +1,10 @@
+{
+  "pillar": "risk",
+  "order": 1,
+  "title_en": "AI and Machine Learning for Risk Management",
+  "title_ko": "위험 관리를 위한 AI 및 머신러닝",
+  "summary_en": "Multi-disaster risk assessment databases, open data platforms, and big data frameworks for disaster risk reduction.",
+  "summary_ko": "복합재난 위험도 평가 데이터베이스, 오픈데이터 플랫폼, 재난 위험 저감을 위한 빅데이터 분석 프레임워크를 연구합니다.",
+  "keywords": "Disaster risk, open data, big data",
+  "image": ""
+}

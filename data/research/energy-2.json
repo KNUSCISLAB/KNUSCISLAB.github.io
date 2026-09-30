@@ -1,0 +1,10 @@
+{
+  "pillar": "energy",
+  "order": 2,
+  "title_en": "PV–battery operation and energy trading",
+  "title_ko": "태양광·ESS 운영 및 전력 거래",
+  "summary_en": "Day-ahead strategies for solar and battery systems, including in-context LLMs that recommend operating plans.",
+  "summary_ko": "태양광과 ESS의 하루 전 운영 전략을 연구하며, 운영 계획을 추천하는 In-context LLM도 포함합니다.",
+  "keywords": "PV-BESS, LLM, energy trading",
+  "image": ""
+}

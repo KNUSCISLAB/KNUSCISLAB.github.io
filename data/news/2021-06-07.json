@@ -1,0 +1,11 @@
+{
+  "date": "2021-06",
+  "category": "event",
+  "title_en": "New GPU server installed",
+  "title_ko": "GPU 서버 도입",
+  "body_en": "An NVIDIA Tesla V100 two-way machine (about 20 TFLOPS) is now available for lab research.",
+  "body_ko": "NVIDIA Tesla V100 2-way 서버(약 20 TFLOPS)를 연구에 활용할 수 있게 되었습니다.",
+  "link": "",
+  "image": "",
+  "pinned": false
+}

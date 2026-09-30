@@ -1,0 +1,10 @@
+{
+  "pillar": "energy",
+  "order": 5,
+  "title_en": "Forecasting for renewables and load",
+  "title_ko": "재생에너지 및 부하 예측",
+  "summary_en": "Spatio-temporal forecasting of solar generation and electricity demand, with transfer learning across regions.",
+  "summary_ko": "태양광 발전량과 전력 수요를 시공간적으로 예측하고, 지역 간 전이학습을 연구합니다.",
+  "keywords": "Forecasting, satellite data, transfer learning",
+  "image": ""
+}

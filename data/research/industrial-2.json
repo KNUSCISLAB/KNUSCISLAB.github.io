@@ -1,0 +1,10 @@
+{
+  "pillar": "industrial",
+  "order": 2,
+  "title_en": "Vision-language models for inspection",
+  "title_ko": "검사를 위한 비전-언어 모델(VLM)",
+  "summary_en": "Models that describe a defect in words and point to the evidence in the image.",
+  "summary_ko": "결함을 말로 설명하고 이미지에서 근거를 짚어주는 모델을 연구합니다.",
+  "keywords": "VLM, LLM, explainability",
+  "image": ""
+}

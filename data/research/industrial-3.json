@@ -1,0 +1,10 @@
+{
+  "pillar": "industrial",
+  "order": 3,
+  "title_en": "Vision-language-action policies",
+  "title_ko": "비전-언어-행동(VLA) 정책",
+  "summary_en": "Policies that turn inspection results and instructions into robot actions on the line.",
+  "summary_ko": "검사 결과와 지시문을 라인 위 로봇 동작으로 바꾸는 정책을 연구합니다.",
+  "keywords": "VLA, robotics",
+  "image": ""
+}

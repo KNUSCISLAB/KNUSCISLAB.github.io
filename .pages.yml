@@ -1,0 +1,337 @@
+# Pages CMS configuration (관리 화면 설정)
+# 이 파일이 관리 화면의 메뉴와 입력칸을 정합니다. 보통은 고칠 필요가 없습니다.
+
+media:
+  input: assets/uploads
+  output: /assets/uploads
+  rename: safe
+
+settings:
+  content:
+    merge: true
+  commit:
+    identity: user
+
+content:
+  # ---------------- 뉴스 ----------------
+  - name: news
+    label: "뉴스 (News)"
+    type: collection
+    path: data/news
+    format: json
+    filename: "{year}-{month}-{day}-{primary}.json"
+    view:
+      fields: [date, title_ko, title_en, category]
+      primary: title_en
+      sort: [date, title_en]
+      search: [title_en, title_ko]
+      default:
+        sort: date
+        order: desc
+    fields:
+      - name: date
+        label: "날짜 (연-월)"
+        type: date
+        required: true
+        options:
+          format: yyyy-MM
+      - name: category
+        label: "종류"
+        type: select
+        required: true
+        options:
+          values:
+            - { name: publication, label: "논문 (Publication)" }
+            - { name: award, label: "수상·특허 (Award / Patent)" }
+            - { name: talk, label: "발표·강연 (Talk)" }
+            - { name: project, label: "과제·협력 (Project)" }
+            - { name: recruiting, label: "모집 (Recruiting)" }
+            - { name: event, label: "연구실 소식 (Lab event)" }
+      - { name: title_en, label: "제목 (영문)", type: string, required: true }
+      - { name: title_ko, label: "제목 (한글, 비우면 영문 표시)", type: string }
+      - { name: body_en, label: "내용 (영문)", type: text }
+      - { name: body_ko, label: "내용 (한글)", type: text }
+      - { name: link, label: "관련 링크 (선택)", type: string, description: "https:// 로 시작하는 주소" }
+      - { name: image, label: "사진 (선택)", type: image }
+      - { name: pinned, label: "홈 화면 맨 앞에 고정", type: boolean, default: false }
+
+  # ---------------- 논문 ----------------
+  - name: publications
+    label: "논문 (Publications)"
+    type: collection
+    path: data/publications
+    format: json
+    filename: "{fields.year}-{primary}.json"
+    view:
+      fields: [year, title, type, venue]
+      primary: title
+      sort: [year, title]
+      search: [title, authors, venue]
+      default:
+        sort: year
+        order: desc
+    fields:
+      - name: type
+        label: "구분"
+        type: select
+        required: true
+        default: journal
+        options:
+          values:
+            - { name: journal, label: "국제 저널 (Journal)" }
+            - { name: under_review, label: "심사 중 (Under review)" }
+            - { name: conference, label: "국제 학회 (Conference)" }
+            - { name: domestic, label: "국내 논문·학회 (Domestic)" }
+      - { name: year, label: "연도", type: number, required: true }
+      - { name: title, label: "논문 제목", type: string, required: true }
+      - name: authors
+        label: "저자 (논문에 나온 순서대로)"
+        type: string
+        required: true
+        description: "예: Kim, B., Suh, D.  (별표 * 는 적지 않아도 됩니다. 아래 체크박스로 자동 표시)"
+      - name: corresponding
+        label: "서동준 교수 교신저자"
+        type: boolean
+        default: true
+        description: "켜면 저자 목록에 Suh, D.* 로 표시됩니다"
+      - { name: venue, label: "저널·학회 이름", type: string, required: true }
+      - { name: details, label: "권·호·페이지 (선택)", type: string, description: "예: Vol. 345, 115944" }
+      - { name: metrics, label: "지표 (선택)", type: string, description: "예: IF 6.6, JCR top 5.1%" }
+      - { name: doi, label: "DOI (선택)", type: string, description: "예: 10.1016/j.enbuild.2025.115944  (https://doi.org/ 는 빼고)" }
+      - { name: link, label: "논문 링크 (DOI가 없을 때)", type: string }
+      - { name: pdf, label: "PDF 파일 (선택)", type: file, options: { extensions: [pdf] } }
+      - { name: code, label: "코드 링크 (GitHub 등)", type: string }
+      - name: pillar
+        label: "연구 분야"
+        type: select
+        default: energy
+        options:
+          values:
+            - { name: energy, label: "Energy AI" }
+            - { name: industrial, label: "Industrial AI" }
+            - { name: climate, label: "기후변화 정책 (Climate Change Policy)" }
+            - { name: risk, label: "위험 관리 (Risk Management)" }
+            - { name: other, label: "기타 (Other)" }
+      - { name: featured, label: "홈 화면 대표 논문으로 표시", type: boolean, default: false }
+      - { name: thumbnail, label: "대표 그림 (선택)", type: image }
+      - { name: note, label: "메모 (예: Accepted, In revision)", type: string }
+
+  # ---------------- 구성원 ----------------
+  - name: people
+    label: "구성원 (People)"
+    type: collection
+    path: data/people
+    format: json
+    filename: "{primary}.json"
+    view:
+      fields: [name_en, name_ko, role]
+      primary: name_en
+      sort: [role, name_en]
+      search: [name_en, name_ko]
+    fields:
+      - { name: name_en, label: "이름 (영문)", type: string, required: true }
+      - { name: name_ko, label: "이름 (한글, 선택)", type: string }
+      - name: role
+        label: "구분"
+        type: select
+        required: true
+        options:
+          values:
+            - { name: postdoc, label: "박사후연구원 (Postdoc)" }
+            - { name: researcher, label: "연구원 (Researcher)" }
+            - { name: phd, label: "박사과정 (PhD)" }
+            - { name: ms, label: "석사과정 (MS)" }
+            - { name: intern, label: "학부 인턴 (Intern)" }
+            - { name: alumni, label: "졸업생 (Alumni)" }
+      - { name: note, label: "비고 (예: MS 2024, 현재 소속)", type: string }
+      - { name: email, label: "이메일", type: string }
+      - { name: photo, label: "사진 (정사각형 권장)", type: image }
+      - { name: interests_en, label: "연구 관심사 (영문)", type: string }
+      - { name: interests_ko, label: "연구 관심사 (한글)", type: string }
+      - { name: homepage, label: "개인 페이지·LinkedIn (선택)", type: string }
+      - { name: order, label: "표시 순서 (작을수록 앞)", type: number, default: 50 }
+
+  # ---------------- 교수 ----------------
+  - name: professor
+    label: "교수 소개 (Professor)"
+    type: file
+    path: data/professor.json
+    format: json
+    operations: { delete: false }
+    fields:
+      - { name: name_en, label: "이름 (영문)", type: string }
+      - { name: name_ko, label: "이름 (한글)", type: string }
+      - { name: title_en, label: "직위 (영문)", type: string }
+      - { name: title_ko, label: "직위 (한글)", type: string }
+      - { name: departments_en, label: "소속 학과 (영문)", type: string, list: true }
+      - { name: departments_ko, label: "소속 학과 (한글)", type: string, list: true }
+      - { name: email, label: "이메일", type: string }
+      - { name: phone, label: "전화", type: string }
+      - { name: office_en, label: "연구실 위치 (영문)", type: string }
+      - { name: office_ko, label: "연구실 위치 (한글)", type: string }
+      - { name: photo, label: "사진", type: image }
+      - { name: scholar_url, label: "Google Scholar 주소", type: string }
+      - { name: orcid_url, label: "ORCID 주소", type: string }
+      - { name: cv, label: "CV 파일 (PDF)", type: file, options: { extensions: [pdf] } }
+      - { name: bio_en, label: "소개 (영문, 문단은 빈 줄로 구분)", type: text }
+      - { name: bio_ko, label: "소개 (한글)", type: text }
+      - { name: activities, label: "학회·위원 활동", type: string, list: true }
+
+  - name: talks
+    label: "초청 강연 (Talks)"
+    type: file
+    path: data/talks.json
+    format: json
+    list: true
+    fields:
+      - { name: date, label: "날짜 (예: 2025-05)", type: string, required: true }
+      - { name: title, label: "강연 제목", type: string, required: true }
+      - { name: venue, label: "장소·기관", type: string }
+
+  - name: press
+    label: "언론 보도 (Press)"
+    type: file
+    path: data/press.json
+    format: json
+    list: true
+    fields:
+      - { name: date, label: "날짜 (예: 2022 또는 2022-05)", type: string, required: true }
+      - { name: source, label: "언론사", type: string }
+      - { name: title, label: "기사 제목", type: string, required: true }
+      - { name: url, label: "기사 주소", type: string }
+
+  # ---------------- 특허 ----------------
+  - name: patents
+    label: "특허·프로그램 (Patents)"
+    type: collection
+    path: data/patents
+    format: json
+    filename: "{fields.kind}-{primary}.json"
+    view:
+      fields: [date, title, kind]
+      primary: title
+      default: { sort: date, order: desc }
+    fields:
+      - name: kind
+        label: "구분"
+        type: select
+        required: true
+        options:
+          values:
+            - { name: patent_kr, label: "국내 특허" }
+            - { name: patent_intl, label: "국제 특허 (US, PCT 등)" }
+            - { name: program, label: "프로그램 등록" }
+      - { name: title, label: "명칭", type: string, required: true }
+      - { name: number, label: "등록번호 또는 출원번호", type: string }
+      - { name: application, label: "출원번호 (선택)", type: string }
+      - { name: inventors, label: "발명자", type: string }
+      - { name: date, label: "등록일 또는 출원일 (예: 2024-09-17)", type: string }
+      - name: status
+        label: "상태"
+        type: select
+        default: registered
+        options:
+          values:
+            - { name: registered, label: "등록" }
+            - { name: filed, label: "출원" }
+
+  # ---------------- 연구 ----------------
+  - name: research
+    label: "연구 주제 (Research)"
+    type: collection
+    path: data/research
+    format: json
+    filename: "{fields.pillar}-{primary}.json"
+    view:
+      fields: [pillar, order, title_en]
+      primary: title_en
+      default: { sort: order, order: asc }
+    fields:
+      - name: pillar
+        label: "분야"
+        type: select
+        required: true
+        options:
+          values:
+            - { name: energy, label: "Energy AI (메인)" }
+            - { name: industrial, label: "Industrial AI (메인)" }
+            - { name: climate, label: "기후변화 정책 (기타 연구)" }
+            - { name: risk, label: "위험 관리 (기타 연구)" }
+      - { name: order, label: "표시 순서", type: number, default: 10 }
+      - { name: title_en, label: "주제 (영문)", type: string, required: true }
+      - { name: title_ko, label: "주제 (한글)", type: string }
+      - { name: summary_en, label: "설명 (영문)", type: text }
+      - { name: summary_ko, label: "설명 (한글)", type: text }
+      - { name: keywords, label: "키워드 (쉼표로 구분)", type: string }
+      - { name: image, label: "그림 (선택)", type: image }
+
+  - name: projects
+    label: "연구 과제 (Projects)"
+    type: collection
+    path: data/projects
+    format: json
+    filename: "{fields.start}-{primary}.json"
+    view:
+      fields: [start, end, title_ko]
+      primary: title_en
+      default: { sort: start, order: desc }
+    fields:
+      - { name: start, label: "시작 (예: 2021-06)", type: string, required: true }
+      - { name: end, label: "종료 (예: 2026-05, 비우면 진행 중)", type: string }
+      - { name: title_en, label: "과제명 (영문)", type: string, required: true }
+      - { name: title_ko, label: "과제명 (한글)", type: string }
+      - { name: funder_en, label: "지원 기관 (영문)", type: string }
+      - { name: funder_ko, label: "지원 기관·사업 (한글)", type: string }
+      - { name: role_en, label: "역할 (영문)", type: string }
+      - { name: role_ko, label: "역할 (한글)", type: string }
+
+  - name: programs
+    label: "참여 사업·센터 (Programs)"
+    type: collection
+    path: data/programs
+    format: json
+    filename: "{fields.start}-{primary}.json"
+    view:
+      fields: [start, end, name_ko]
+      primary: name_en
+      default: { sort: start, order: desc }
+    fields:
+      - { name: start, label: "시작 (예: 2025-07)", type: string, required: true }
+      - { name: end, label: "종료 (비우면 현재)", type: string }
+      - { name: name_en, label: "이름 (영문)", type: string, required: true }
+      - { name: name_ko, label: "이름 (한글)", type: string }
+      - { name: role_en, label: "역할 (영문)", type: string }
+      - { name: role_ko, label: "역할 (한글)", type: string }
+
+  # ---------------- 기본 설정 ----------------
+  - name: site
+    label: "홈페이지 기본 설정 (Settings)"
+    type: file
+    path: data/site.json
+    format: json
+    operations: { delete: false }
+    fields:
+      - { name: name_en, label: "연구실 이름 (영문)", type: string }
+      - { name: name_ko, label: "연구실 이름 (한글)", type: string }
+      - { name: short_name, label: "짧은 이름 (상단 메뉴)", type: string }
+      - { name: university_en, label: "대학 (영문)", type: string }
+      - { name: university_ko, label: "대학 (한글)", type: string }
+      - { name: logo, label: "연구실 로고", type: image }
+      - { name: headline_en, label: "첫 화면 큰 제목 (영문)", type: string }
+      - { name: headline_ko, label: "첫 화면 큰 제목 (한글)", type: string }
+      - { name: intro_en, label: "첫 화면 소개 (영문)", type: text }
+      - { name: intro_ko, label: "첫 화면 소개 (한글)", type: text }
+      - { name: energy_summary_en, label: "Energy AI 한 줄 소개 (영문)", type: string }
+      - { name: energy_summary_ko, label: "Energy AI 한 줄 소개 (한글)", type: string }
+      - { name: industrial_summary_en, label: "Industrial AI 한 줄 소개 (영문)", type: string }
+      - { name: industrial_summary_ko, label: "Industrial AI 한 줄 소개 (한글)", type: string }
+      - { name: recruiting_open, label: "학생 모집 중 표시", type: boolean }
+      - { name: recruiting_en, label: "모집 안내 (영문)", type: text }
+      - { name: recruiting_ko, label: "모집 안내 (한글)", type: text }
+      - { name: email, label: "대표 이메일", type: string }
+      - { name: phone, label: "전화", type: string }
+      - { name: fax, label: "팩스", type: string }
+      - { name: address_en, label: "주소 (영문)", type: text }
+      - { name: address_ko, label: "주소 (한글)", type: text }
+      - { name: github_url, label: "GitHub 주소", type: string }
+      - { name: scholar_url, label: "Google Scholar 주소", type: string }

@@ -1,0 +1,108 @@
+/* Interface text in English and Korean. Content text lives in data/. */
+window.I18N = {
+  en: {
+    skip: 'Skip to content',
+    nav_research: 'Research', nav_people: 'People', nav_pubs: 'Publications', nav_news: 'News', nav_join: 'Join us',
+    lang_switch: '한국어', lang_label: 'Korean version',
+    menu: 'Menu', theme: 'Color theme', theme_auto: 'Theme: automatic', theme_light: 'Theme: light', theme_dark: 'Theme: dark',
+    loading: 'Loading…', load_error: 'Some content could not be loaded. Refresh the page to try again.',
+    see_research: 'See our research', join_lab: 'Join the lab',
+    tab_energy: 'Energy AI', tab_industrial: 'Industrial AI',
+    stage_energy: 'One agent coordinates generation, storage, the grid, and thousands of EVs.',
+    stage_industrial: 'From spotting a defect to explaining it and removing it from the line.',
+    swipe_system: 'Swipe sideways to see the full picture.',
+    research: 'Research', research_lead: 'Two pillars that share one toolbox: reinforcement learning, deep learning, and foundation models tested on real systems.',
+    all_research: 'All research topics',
+    recent_pubs: 'Recent publications', all_pubs_n: 'All {n} journal papers',
+    news: 'News', all_news: 'All news', join_title: 'Join the lab', email_prof: 'Email Prof. Suh', not_recruiting: 'We are not recruiting right now, but you are welcome to get in touch.',
+    // research page
+    research_title: 'Research', research_page_lead: 'Energy AI and Industrial AI are the two pillars of our lab. Both rely on learning systems that must work reliably in the field.',
+    energy_ai: 'Energy AI', industrial_ai: 'Industrial AI', projects: 'Research projects', ongoing: 'Ongoing', completed: 'Completed',
+    programs: 'Affiliated centers and programs', present: 'present', related_pubs: 'Related publications', other_research: 'Other research', other_research_lead: 'Work beyond our two main pillars.', show_all_n: 'Show all {n} papers',
+    // people
+    people_title: 'People', people_lead: 'Researchers and students who work on Energy AI and Industrial AI.',
+    professor: 'Principal investigator', bio: 'Biography', activities: 'Professional service', talks: 'Invited talks', press: 'Press',
+    role_postdoc: 'Postdoctoral researchers', role_researcher: 'Researchers', role_phd: 'PhD students', role_ms: 'MS students', role_intern: 'Undergraduate interns', role_alumni: 'Alumni',
+    interests: 'Interests', cv: 'CV', scholar: 'Google Scholar', orcid: 'ORCID',
+    // publications
+    pubs_title: 'Publications', pubs_lead: 'Journal papers, conference papers, and patents since 2018. Corresponding authorship is marked as Suh, D.*',
+    search_pubs: 'Search by title, author, or venue', all: 'All', type_journal: 'Journals', type_under_review: 'Under review', type_conference: 'Conferences', type_domestic: 'Domestic',
+    pillar_all: 'All areas', pillar_energy: 'Energy AI', pillar_industrial: 'Industrial AI', pillar_other: 'Other', pillar_climate: 'Climate change policy', pillar_risk: 'Risk management', year_all: 'All years',
+    showing: 'Showing {n} of {total}', no_results: 'No publications match these filters.', clear_filters: 'Clear filters',
+    under_review: 'Under review', cite: 'Copy citation', copied: 'Citation copied', code: 'Code', pdf: 'PDF', doi: 'DOI', paper: 'Paper',
+    patents: 'Patents and program registrations', patent_kr: 'Korean patent', patent_intl: 'International patent', program: 'Program registration',
+    registered: 'Registered', filed: 'Filed', inventors: 'Inventors',
+    stat_journals: 'journal papers', stat_patents: 'patents', stat_programs: 'program registrations', stat_review: 'under review',
+    // news
+    news_title: 'News', news_lead: 'Papers, awards, talks, and lab events.',
+    cat_all: 'All', cat_publication: 'Publication', cat_award: 'Award', cat_talk: 'Talk', cat_project: 'Project', cat_recruiting: 'Recruiting', cat_event: 'Lab event',
+    read_more: 'Read more', no_news: 'No news in this category yet.',
+    // footer
+    contact: 'Contact', elsewhere: 'Elsewhere', updated: 'Updated {d}',
+    notfound_title: 'Page not found', notfound_body: 'The page you are looking for does not exist or has moved.', go_home: 'Go to the home page'
+  },
+  ko: {
+    skip: '본문으로 바로가기',
+    nav_research: '연구', nav_people: '구성원', nav_pubs: '논문·특허', nav_news: '소식', nav_join: '지원 안내',
+    lang_switch: 'English', lang_label: 'English version',
+    menu: '메뉴', theme: '화면 테마', theme_auto: '테마: 자동', theme_light: '테마: 밝게', theme_dark: '테마: 어둡게',
+    loading: '불러오는 중…', load_error: '일부 내용을 불러오지 못했습니다. 새로고침해 주세요.',
+    see_research: '연구 분야 보기', join_lab: '연구실 지원하기',
+    tab_energy: 'Energy AI', tab_industrial: 'Industrial AI',
+    stage_energy: '강화학습 에이전트 하나가 발전, 저장, 전력망, 그리고 수많은 EV를 함께 조율합니다.',
+    stage_industrial: '결함을 찾고, 원인을 설명하고, 라인에서 제거하기까지.',
+    swipe_system: '옆으로 밀어 전체 그림을 보세요.',
+    research: '연구 분야', research_lead: '두 연구 축은 강화학습, 딥러닝, 파운데이션 모델이라는 같은 도구를 실제 시스템에서 검증합니다.',
+    all_research: '연구 주제 전체 보기',
+    recent_pubs: '최근 논문', all_pubs_n: '국제 저널 논문 {n}편 전체 보기',
+    news: '소식', all_news: '소식 전체 보기', join_title: '연구실 지원 안내', email_prof: '교수님께 이메일 보내기', not_recruiting: '현재는 모집 중이 아니지만, 관심이 있다면 언제든 연락 주세요.',
+    research_title: '연구 분야', research_page_lead: 'Energy AI와 Industrial AI는 연구실의 두 축입니다. 두 분야 모두 현장에서 믿고 쓸 수 있는 학습 시스템을 목표로 합니다.',
+    energy_ai: 'Energy AI', industrial_ai: 'Industrial AI', projects: '연구 과제', ongoing: '진행 중', completed: '완료',
+    programs: '참여 사업 및 센터', present: '현재', related_pubs: '관련 논문', other_research: '기타 연구', other_research_lead: '두 메인 분야 외에 함께 수행하는 연구입니다.', show_all_n: '논문 {n}편 모두 보기',
+    people_title: '구성원', people_lead: 'Energy AI와 Industrial AI를 함께 연구하는 연구원과 학생들입니다.',
+    professor: '지도교수', bio: '약력', activities: '학회 및 위원 활동', talks: '초청 강연', press: '언론 보도',
+    role_postdoc: '박사후연구원', role_researcher: '연구원', role_phd: '박사과정', role_ms: '석사과정', role_intern: '학부 인턴', role_alumni: '졸업생',
+    interests: '관심 분야', cv: 'CV', scholar: 'Google Scholar', orcid: 'ORCID',
+    pubs_title: '논문·특허', pubs_lead: '2018년 이후의 저널 논문, 학회 논문, 특허입니다. 교신저자는 Suh, D.* 로 표시합니다.',
+    search_pubs: '제목, 저자, 저널명으로 검색', all: '전체', type_journal: '국제 저널', type_under_review: '심사 중', type_conference: '국제 학회', type_domestic: '국내',
+    pillar_all: '모든 분야', pillar_energy: 'Energy AI', pillar_industrial: 'Industrial AI', pillar_other: '기타', pillar_climate: '기후변화 정책', pillar_risk: '위험 관리', year_all: '모든 연도',
+    showing: '전체 {total}편 중 {n}편', no_results: '조건에 맞는 논문이 없습니다.', clear_filters: '필터 초기화',
+    under_review: '심사 중', cite: '인용 복사', copied: '인용 정보를 복사했습니다', code: 'Code', pdf: 'PDF', doi: 'DOI', paper: '논문',
+    patents: '특허 및 프로그램 등록', patent_kr: '국내 특허', patent_intl: '국제 특허', program: '프로그램 등록',
+    registered: '등록', filed: '출원', inventors: '발명자',
+    stat_journals: '국제 저널 논문', stat_patents: '특허', stat_programs: '프로그램 등록', stat_review: '심사 중',
+    news_title: '소식', news_lead: '논문, 수상, 발표, 연구실 행사 소식입니다.',
+    cat_all: '전체', cat_publication: '논문', cat_award: '수상·특허', cat_talk: '발표·강연', cat_project: '과제·협력', cat_recruiting: '모집', cat_event: '연구실 소식',
+    read_more: '자세히 보기', no_news: '이 종류의 소식이 아직 없습니다.',
+    contact: '연락처', elsewhere: '바로가기', updated: '{d} 업데이트',
+    notfound_title: '페이지를 찾을 수 없습니다', notfound_body: '찾으시는 페이지가 없거나 주소가 바뀌었습니다.', go_home: '홈으로 가기'
+  }
+};
+
+/* Text inside the two research illustrations */
+window.IL_TEXT = {
+  en: {
+    agent: 'Reinforcement learning agent', obs1: 'Observes prices, battery charge, EV arrivals', obs2: 'Dispatches charging, storage, and V2G',
+    policy: 'π(a|s) trained to maximize reward', reward: 'reward during training', observe: 'observe', act: 'act',
+    gen: 'Generation', gen_s: 'Solar and wind', sto: 'Storage', sto_s: 'Battery and hydrogen', dis: 'Distribution', dis_s: 'Substations and feeders', con: 'Consumption', con_s: 'EV fleets and buildings',
+    l_flow: 'Energy flow', l_v2g: 'Vehicle-to-grid discharge', l_act: 'Agent actions', l_charge: 'EV charging', l_discharge: 'EV discharging',
+    p1: '1  Perceive', p1s: 'Cameras and sensors on the line', p2: '2  Reason', p2s: 'A VLM explains what went wrong', p3: '3  Act', p3s: 'A VLA policy acts on the line',
+    vib: 'vibration', score: 'anomaly score', q: 'Q: Is part 7 defective? Why?', a1: 'Yes. Hairline crack near the left edge.', a2: 'Pattern matches thermal stress at', a3: 'the press stage. Confidence 0.93.',
+    act1: 'Action: remove part 7,', act2: 'check press temperature', instr: '“Pick the cracked part, reject it”', j1: 'joint commands from', j2: 'image + instruction', bin: 'reject bin',
+    l_anom: 'Detected anomaly', l_vlm: 'Vision-language model', l_vla: 'VLA: a vision-language-action model that turns images and instructions into robot actions',
+    aria_energy: 'A reinforcement learning agent observes and controls generation, storage, distribution, and consumption, including a large fleet of electric vehicles that can charge or discharge back to the grid.',
+    aria_industrial: 'Cameras and vibration sensors detect a cracked part, a vision-language model explains the defect, and a vision-language-action policy directs a robot arm to remove it.'
+  },
+  ko: {
+    agent: '강화학습 에이전트', obs1: '전력 가격, 배터리 잔량, EV 도착을 관찰', obs2: '충전, 저장, V2G를 실시간 제어',
+    policy: 'π(a|s): 보상을 최대화하도록 학습', reward: '학습 중 보상 변화', observe: '관찰', act: '제어',
+    gen: '발전', gen_s: '태양광과 풍력', sto: '저장', sto_s: '배터리와 수소', dis: '배분', dis_s: '변전소와 배전망', con: '소비', con_s: 'EV 군집과 건물',
+    l_flow: '에너지 흐름', l_v2g: 'V2G 방전', l_act: '에이전트 제어', l_charge: 'EV 충전', l_discharge: 'EV 방전',
+    p1: '1  인지', p1s: '라인 위 카메라와 센서', p2: '2  추론', p2s: 'VLM이 결함 원인을 설명', p3: '3  행동', p3s: 'VLA 정책이 로봇을 제어',
+    vib: '진동', score: '이상 점수', q: 'Q: 7번 부품은 불량인가? 이유는?', a1: '네. 왼쪽 가장자리에 미세 균열.', a2: '프레스 공정의 열응력 패턴과', a3: '일치합니다. 신뢰도 0.93.',
+    act1: '조치: 7번 부품 제거,', act2: '프레스 온도 점검', instr: '“균열 부품을 불량함에 넣어”', j1: '이미지와 지시문으로', j2: '관절 동작 생성', bin: '불량품 함',
+    l_anom: '탐지된 이상', l_vlm: '비전-언어 모델(VLM)', l_vla: 'VLA: 이미지와 지시문을 로봇 동작으로 바꾸는 비전-언어-행동 모델',
+    aria_energy: '강화학습 에이전트가 발전, 저장, 배분, 소비 단계와 V2G가 가능한 대규모 전기차 군집을 관찰하고 제어하는 모습입니다.',
+    aria_industrial: '카메라와 진동 센서가 균열 부품을 찾고, 비전-언어 모델이 결함을 설명하며, 비전-언어-행동 정책이 로봇 팔로 부품을 제거하는 모습입니다.'
+  }
+};

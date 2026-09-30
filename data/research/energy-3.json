@@ -1,0 +1,10 @@
+{
+  "pillar": "energy",
+  "order": 3,
+  "title_en": "Demand response and building energy control",
+  "title_ko": "수요반응 및 건물 에너지 제어",
+  "summary_en": "Safe reinforcement learning and predictive control for HVAC, storage, and on-site PV in buildings.",
+  "summary_ko": "건물의 냉난방, 저장장치, 자가 태양광을 위한 안전 강화학습과 예측 제어를 연구합니다.",
+  "keywords": "Safe RL, MPC, BEMS",
+  "image": ""
+}

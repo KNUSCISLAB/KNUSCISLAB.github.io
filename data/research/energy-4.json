@@ -1,0 +1,10 @@
+{
+  "pillar": "energy",
+  "order": 4,
+  "title_en": "Battery health and lifetime",
+  "title_ko": "배터리 건강 상태 및 수명 예측",
+  "summary_en": "State-of-health estimation and degradation prediction for lithium-ion batteries under varied operating conditions.",
+  "summary_ko": "다양한 운전 조건에서 리튬이온 배터리의 SoH를 추정하고 열화를 예측합니다.",
+  "keywords": "SoH, distillation, lifetime",
+  "image": ""
+}

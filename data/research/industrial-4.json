@@ -1,0 +1,10 @@
+{
+  "pillar": "industrial",
+  "order": 4,
+  "title_en": "Fault diagnosis and prognostics",
+  "title_ko": "고장 진단 및 예지보전",
+  "summary_en": "Vibration, acoustic, and wafer-map analysis with deep temporal clustering and CNNs.",
+  "summary_ko": "진동, 음향, 웨이퍼 맵 데이터를 딥 시계열 클러스터링과 CNN으로 분석합니다.",
+  "keywords": "PHM, wafer maps, spectrograms",
+  "image": ""
+}

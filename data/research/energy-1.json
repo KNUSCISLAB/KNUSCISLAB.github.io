@@ -1,0 +1,10 @@
+{
+  "pillar": "energy",
+  "order": 1,
+  "title_en": "EV charging and V2G at fleet scale",
+  "title_ko": "대규모 EV 충전 및 V2G 스케줄링",
+  "summary_en": "Constraint-aware reinforcement learning that schedules charging and vehicle-to-grid discharge for many EVs at once.",
+  "summary_ko": "여러 대의 EV 충전과 V2G 방전을 동시에 스케줄링하는 제약 인지형 강화학습을 연구합니다.",
+  "keywords": "V2G, multi-agent RL, EV routing",
+  "image": ""
+}

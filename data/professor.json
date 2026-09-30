@@ -1,0 +1,36 @@
+{
+  "name_en": "Dongjun Suh, Ph.D.",
+  "name_ko": "서동준 교수",
+  "title_en": "Associate Professor and Department Chair",
+  "title_ko": "부교수, 학과장",
+  "departments_en": [
+    "Department of Convergence & Fusion System Engineering",
+    "Department of Smart Plant Engineering",
+    "Department of Energy Convergence & Climate Change"
+  ],
+  "departments_ko": [
+    "융복합시스템공학과",
+    "스마트플랜트공학과",
+    "Department of Energy Convergence & Climate Change"
+  ],
+  "email": "dongjunsuh@knu.ac.kr",
+  "phone": "+82-54-530-1482",
+  "office_en": "Building No. 9, Office 411, Sangju Campus",
+  "office_ko": "상주캠퍼스 9호관 411호",
+  "photo": "",
+  "scholar_url": "",
+  "orcid_url": "",
+  "cv": "",
+  "bio_en": "Dongjun Suh is Department Chair and Associate Professor of the Department of Convergence & Fusion System Engineering and the Department of Smart Plant Engineering at Kyungpook National University (KNU), and Head of the Innovative Education and Research Center for Global New Energy Industry with Climate Change. He joined KNU in spring 2018.\n\nHe was a visiting scholar at the University of Southern California (USC) from 2023 to 2024. He received his Ph.D. from the Department of Civil and Environmental Engineering (Construction-ICT convergence track) at KAIST.\n\nFrom 2015 to 2018 he was a senior researcher at the Korea Institute of Science and Technology Information (KISTI), where he led the disaster risk analysis team for high-rise buildings (PI of the disaster project, MDCO Convergence Research Center, about 9.8 billion KRW, 2016–2019). He was also an associate professor at the Department of S&T Information Science, University of Science & Technology (UST, 2017–2018), a research assistant professor at the KAIST Institute for Information Technology Convergence (2014–2015), and a software engineer at HUMAX (2007–2010).\n\nHis research centers on big data and smart control systems: predictive analytics that combine statistical modeling, machine learning, and AI-based problem solving for large-scale infrastructure such as plants, cities, factories, buildings, and farms.",
+  "bio_ko": "서동준 교수는 경북대학교 융복합시스템공학과와 스마트플랜트공학과의 학과장 겸 부교수이며, Innovative Education and Research Center for Global New Energy Industry with Climate Change의 센터장을 맡고 있습니다. 2018년 봄 경북대학교에 부임했습니다.\n\n2023년부터 2024년까지 미국 서던캘리포니아대학교(USC) 방문학자로 있었으며, KAIST 건설및환경공학과(건설-ICT 융합 트랙)에서 박사 학위를 받았습니다.\n\n2015년부터 2018년까지 한국과학기술정보연구원(KISTI) 선임연구원으로 재직하며 초고층 건물의 지진, 화재, 홍수 등 재난 위험 분석 연구팀을 이끌었습니다(MDCO 융합연구단 재난 과제 책임자, 약 98억 원, 2016–2019). 또한 과학기술연합대학원대학교(UST) 과학기술정보과학과 부교수(2017–2018), KAIST 정보기술융합연구소 연구조교수(2014–2015), 휴맥스 소프트웨어 엔지니어(2007–2010)로 일했습니다.\n\n주요 연구 분야는 빅데이터와 스마트 제어 시스템으로, 통계 모델링, 머신러닝, AI 기반 문제 해결을 결합한 예측 분석을 플랜트, 도시, 공장, 건물, 농장 등 대규모 인프라에 적용하고 있습니다.",
+  "activities": [
+    "Technical expert, CBM+ Specialized Research Center, KISTI (한국과학기술정보연구원 CBM+ 특화연구센터 기술전문위원)",
+    "Member, Gyeongsangbuk-do research group (경상북도 넷북연구단 위원), 2021–2022",
+    "Policy forum member, Jeonbuk Research Institute (전북연구원 대도약정책포럼위원), 2021",
+    "Guest Editor, Sustainability (SSCI/SCIE), 2020–2022",
+    "R&D roadmap committee, KEPCO Research Institute (한국전력연구원 기초연구 R&D 로드맵 롤링위원), 2019–present",
+    "Board member, Korea Data Science Society (데이터싸이언스학회 이사)",
+    "Board member, Korea Digital Contents Society (한국디지털콘텐츠학회 이사)",
+    "Member, KICS, KIISE, SAREK, ICROS, and IEEE"
+  ]
+}
