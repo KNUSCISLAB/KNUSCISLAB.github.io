@@ -52,7 +52,7 @@ window.I18N = {
     cat_all: 'All', cat_publication: 'Publication', cat_award: 'Award', cat_talk: 'Talk', cat_project: 'Project', cat_recruiting: 'Recruiting', cat_event: 'Lab event',
     read_more: 'Read more', details: 'Details', no_news: 'No news in this category yet.',
     // footer
-    contact: 'Contact', elsewhere: 'Elsewhere', updated: 'Updated {d}',
+    contact: 'Contact', elsewhere: 'Elsewhere', updated: 'Updated {d}', privacy: 'This site keeps anonymous visit statistics (no cookies; IP addresses are not stored).',
     notfound_title: 'Page not found', notfound_body: 'The page you are looking for does not exist or has moved.', go_home: 'Go to the home page'
   },
   ko: {
@@ -101,7 +101,7 @@ window.I18N = {
     news_title: '소식', news_lead: '논문, 수상, 발표, 연구실 행사 소식입니다.',
     cat_all: '전체', cat_publication: '논문', cat_award: '수상·특허', cat_talk: '발표·강연', cat_project: '과제·협력', cat_recruiting: '모집', cat_event: '연구실 소식',
     read_more: '관련 링크', details: '자세히 보기', no_news: '이 종류의 소식이 아직 없습니다.',
-    contact: '연락처', elsewhere: '바로가기', updated: '{d} 업데이트',
+    contact: '연락처', elsewhere: '바로가기', updated: '{d} 업데이트', privacy: '이 사이트는 익명 방문 통계를 수집합니다 (쿠키 없음, IP 주소는 저장하지 않음).',
     notfound_title: '페이지를 찾을 수 없습니다', notfound_body: '찾으시는 페이지가 없거나 주소가 바뀌었습니다.', go_home: '홈으로 가기'
   }
 };

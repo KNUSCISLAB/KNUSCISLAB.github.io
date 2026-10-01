@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Site Statistics | SCIS Lab</title>
+<link rel="icon" href="assets/img/favicon-32.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+<style>
+:root {
+  color-scheme: light;
+  --bg: #FAFBFC; --surface: #FFFFFF; --ink: #10233F; --muted: #56657A; --line: #DDE3EA; --grid: #EEF1F5;
+  --accent: #0B8577; --accent-ink: #FFFFFF; --tint: #E3F2EF;
+  --s1: #0B8577; --s2: #6B5BD6; --warn-bg: #FBF0D9; --alert: #D64545;
+  --font: "IBM Plex Sans", "IBM Plex Sans KR", system-ui, -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #0F1620; --surface: #16202C; --ink: #E4EBF3; --muted: #9AA8B8; --line: #2A3748; --grid: #1F2B3A;
+    --accent: #3CC2B1; --accent-ink: #06201C; --tint: #12302E;
+    --s1: #3CC2B1; --s2: #A597FF; --warn-bg: #3A2F14; --alert: #F07070;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0F1620; --surface: #16202C; --ink: #E4EBF3; --muted: #9AA8B8; --line: #2A3748; --grid: #1F2B3A;
+  --accent: #3CC2B1; --accent-ink: #06201C; --tint: #12302E;
+  --s1: #3CC2B1; --s2: #A597FF; --warn-bg: #3A2F14; --alert: #F07070;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font); line-height: 1.5; -webkit-font-smoothing: antialiased; }
+a { color: var(--accent); }
+button, input, select { font: inherit; color: inherit; }
+.wrap { max-width: 1240px; margin: 0 auto; padding: 0 16px; }
+header.top { border-bottom: 1px solid var(--line); background: var(--surface); }
+header.top .wrap { display: flex; align-items: center; gap: 12px; min-height: 64px; flex-wrap: wrap; padding-top: 8px; padding-bottom: 8px; }
+header.top h1 { font-size: 1.1rem; margin: 0; font-weight: 600; }
+header.top h1 small { display: block; font-weight: 400; color: var(--muted); font-size: .8rem; }
+.spacer { flex: 1; }
+.btn { min-height: 36px; padding: 0 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); cursor: pointer; font-size: .9rem; }
+.btn:hover { background: var(--tint); }
+.btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.seg { display: inline-flex; padding: 3px; gap: 2px; border: 1px solid var(--line); border-radius: 9px; background: var(--bg); }
+.seg button { border: 0; background: transparent; min-height: 32px; padding: 0 12px; border-radius: 6px; cursor: pointer; color: var(--muted); font-size: .88rem; }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); font-weight: 600; }
+.bar-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin: 20px 0 8px; }
+.pill { display: inline-flex; align-items: center; gap: 6px; padding: 4px 6px 4px 12px; border-radius: 999px; background: var(--tint); font-size: .85rem; }
+.pill button { border: 0; background: transparent; cursor: pointer; width: 22px; height: 22px; border-radius: 50%; color: var(--muted); }
+.pill button:hover { background: var(--surface); color: var(--ink); }
+.note { color: var(--muted); font-size: .85rem; }
+.demo-banner { background: var(--warn-bg); border-radius: 8px; padding: 8px 12px; font-size: .88rem; margin-top: 16px; }
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin: 12px 0 16px; }
+.kpi { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; }
+.kpi .label { color: var(--muted); font-size: .82rem; }
+.kpi .value { font-size: 1.7rem; font-weight: 600; font-variant-numeric: tabular-nums; line-height: 1.25; margin-top: 2px; }
+.kpi .delta { font-size: .8rem; color: var(--muted); }
+.kpi .delta.up::before { content: "▲ "; } .kpi .delta.down::before { content: "▼ "; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: 12px; margin-bottom: 12px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 16px; min-width: 0; }
+.card.wide { grid-column: 1 / -1; }
+.card h2 { font-size: .98rem; margin: 0 0 2px; font-weight: 600; }
+.card .sub { color: var(--muted); font-size: .8rem; margin: 0 0 12px; }
+.card-head { display: flex; align-items: flex-start; gap: 8px; justify-content: space-between; flex-wrap: wrap; }
+.legend { display: flex; gap: 14px; font-size: .82rem; color: var(--muted); }
+.legend span::before { content: ""; display: inline-block; width: 12px; height: 3px; border-radius: 2px; vertical-align: middle; margin-right: 6px; background: var(--c); }
+.chart { position: relative; }
+.chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+.chart .axis { fill: var(--muted); font-size: 11px; font-family: var(--font); }
+.tip { position: absolute; pointer-events: none; background: var(--ink); color: var(--bg); font-size: .8rem; padding: 6px 9px; border-radius: 6px; white-space: nowrap; transform: translate(-50%, -110%); opacity: 0; transition: opacity .1s; z-index: 5; }
+.tip.on { opacity: 1; }
+.list { list-style: none; margin: 0; padding: 0; }
+.list li { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 12px; padding: 6px 8px; border-radius: 6px; cursor: pointer; font-size: .88rem; }
+.list li:hover { background: var(--tint); }
+.list .name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.list .name small { color: var(--muted); margin-left: 6px; }
+.list .num { font-variant-numeric: tabular-nums; text-align: right; }
+.list .num small { color: var(--muted); margin-left: 8px; }
+.list .track { grid-column: 1 / -1; height: 4px; border-radius: 2px; background: var(--grid); overflow: hidden; }
+.list .track i { display: block; height: 100%; border-radius: 2px; background: var(--s1); }
+.tag { display: inline-block; font-size: .7rem; padding: 0 6px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); margin-left: 6px; vertical-align: 1px; }
+.empty { color: var(--muted); font-size: .88rem; padding: 12px 8px; }
+table { width: 100%; border-collapse: collapse; font-size: .85rem; }
+th, td { text-align: left; padding: 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { color: var(--muted); font-weight: 500; font-size: .8rem; }
+td.n { font-variant-numeric: tabular-nums; white-space: nowrap; }
+td .path { font-family: var(--mono); font-size: .78rem; color: var(--muted); word-break: break-word; }
+.table-wrap { overflow-x: auto; }
+details summary { cursor: pointer; color: var(--muted); font-size: .82rem; margin-top: 8px; }
+.login { max-width: 420px; margin: 12vh auto; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 28px; }
+.login h1 { font-size: 1.2rem; margin: 0 0 6px; }
+.login input { width: 100%; min-height: 42px; padding: 0 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); margin: 14px 0 10px; }
+.err { color: var(--alert); font-size: .88rem; min-height: 1.2em; }
+.mini { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.mini h3 { font-size: .82rem; color: var(--muted); font-weight: 500; margin: 0 0 4px; }
+@media (max-width: 640px) { .mini { grid-template-columns: 1fr; } .kpi .value { font-size: 1.4rem; } }
+footer { color: var(--muted); font-size: .8rem; padding: 24px 0 40px; }
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+(function () {
+  'use strict';
+  // Set after the first Cloudflare deploy (same value as in assets/js/track.js).
+  var ENDPOINT = 'https://scislab-analytics.WORKERS_SUBDOMAIN.workers.dev';
+
+  var app = document.getElementById('app');
+  var params = new URLSearchParams(location.search);
+  var DEMO = params.has('demo');
+  var state = { days: 30, filters: {}, orgView: 'inst', data: null };
+  try { localStorage.setItem('notrack', '1'); } catch (e) {} // don't count the person reading the stats
+  function getKey() { try { return localStorage.getItem('statsKey') || ''; } catch (e) { return ''; } }
+  function setKey(k) { try { if (k) localStorage.setItem('statsKey', k); else localStorage.removeItem('statsKey'); } catch (e) {} }
+
+  /* ---------- helpers ---------- */
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function num(n) { return (n || 0).toLocaleString('en-US'); }
+  function dur(s) { s = Math.round(s || 0); if (!s) return '–'; if (s < 60) return s + 's'; var m = Math.floor(s / 60); if (m < 60) return m + 'm ' + (s % 60) + 's'; return Math.floor(m / 60) + 'h ' + (m % 60) + 'm'; }
+  var regionNames; try { regionNames = new Intl.DisplayNames(['en'], { type: 'region' }); } catch (e) {}
+  function countryName(c) { if (!c) return 'Unknown'; try { return regionNames ? regionNames.of(c) : c; } catch (e) { return c; } }
+  function flag(c) { return c && /^[A-Z]{2}$/.test(c) ? String.fromCodePoint.apply(null, c.split('').map(function (ch) { return 127397 + ch.charCodeAt(0); })) : '🌐'; }
+  var PAGE_NAMES = { '/': 'Home', '/research': 'Research', '/professor': 'Professor', '/people': 'People', '/publications': 'Publications', '/patents': 'Patents', '/projects': 'Projects', '/news': 'News', '/photos': 'Photos', '/404': 'Not found (404)' };
+  function pageName(p) { return PAGE_NAMES[p] || p; }
+  function when(ts) {
+    var d = new Date(ts), now = new Date();
+    var opts = { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'Asia/Seoul' };
+    var sameDay = d.toLocaleDateString('en-CA', { timeZone: 'Asia/Seoul' }) === now.toLocaleDateString('en-CA', { timeZone: 'Asia/Seoul' });
+    return (sameDay ? 'Today ' : d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'Asia/Seoul' }) + ', ') + d.toLocaleTimeString('en-GB', opts);
+  }
+  function delta(cur, prev) {
+    if (!prev) return '<div class="delta">no earlier data</div>';
+    var pct = Math.round((cur - prev) / prev * 100);
+    return '<div class="delta ' + (pct > 0 ? 'up' : pct < 0 ? 'down' : '') + '">' + Math.abs(pct) + '% vs previous ' + state.days + ' days</div>';
+  }
+  var FILTER_LABELS = { org: 'Network', domain: 'Domain', country: 'Country', path: 'Page', ref_host: 'Source' };
+
+  /* ---------- login ---------- */
+  function showLogin(msg) {
+    app.innerHTML = '<form class="login" id="login"><h1>SCIS Lab site statistics</h1>' +
+      '<p class="note">Enter the dashboard key (the ANALYTICS_KEY secret set in GitHub). It is remembered on this device.</p>' +
+      '<input type="password" id="key" autocomplete="current-password" aria-label="Dashboard key" required>' +
+      '<div class="err" role="alert">' + esc(msg || '') + '</div>' +
+      '<button class="btn primary" type="submit">Open dashboard</button> ' +
+      '<a class="btn" style="display:inline-flex;align-items:center;text-decoration:none;color:inherit" href="?demo">View demo</a></form>';
+    document.getElementById('login').addEventListener('submit', function (e) {
+      e.preventDefault(); setKey(document.getElementById('key').value.trim()); load();
+    });
+  }
+
+  /* ---------- data ---------- */
+  function load() {
+    if (DEMO) { state.data = demoData(state.days, state.filters); render(); return; }
+    if (ENDPOINT.indexOf('WORKERS_SUBDOMAIN') !== -1) { showLogin('The statistics server is not connected yet. Try the demo for now.'); return; }
+    var key = getKey();
+    if (!key) { showLogin(); return; }
+    var q = new URLSearchParams({ days: state.days });
+    Object.keys(state.filters).forEach(function (k) { q.set(k, state.filters[k]); });
+    if (state.data) app.style.opacity = '.6';
+    fetch(ENDPOINT + '/stats?' + q, { headers: { Authorization: 'Bearer ' + key } })
+      .then(function (r) {
+        if (r.status === 401) { setKey(''); throw new Error('Wrong key. Please try again.'); }
+        return r.json().then(function (d) { if (!r.ok) throw new Error(d.error || ('Server error ' + r.status)); return d; });
+      })
+      .then(function (d) { state.data = d; app.style.opacity = ''; render(); })
+      .catch(function (e) { app.style.opacity = ''; state.data = null; showLogin(e.message); });
+  }
+
+  /* ---------- render ---------- */
+  function render() {
+    var d = state.data, T = d.totals || {}, P = d.previous || {};
+    var filters = Object.keys(state.filters).map(function (k) {
+      var v = state.filters[k], label = k === 'country' ? countryName(v) : k === 'path' ? pageName(v) : v;
+      return '<span class="pill">' + esc(FILTER_LABELS[k]) + ': <b>' + esc(label) + '</b><button data-unfilter="' + k + '" aria-label="Remove filter">✕</button></span>';
+    }).join('');
+    var ranges = [[7, '7 days'], [30, '30 days'], [90, '90 days'], [365, '1 year']].map(function (r) {
+      return '<button data-days="' + r[0] + '" aria-pressed="' + (state.days === r[0]) + '">' + r[1] + '</button>';
+    }).join('');
+
+    app.innerHTML =
+      '<header class="top"><div class="wrap"><h1>SCIS Lab site statistics<small>knuscislab.github.io · ' + esc(d.range.from) + ' to ' + esc(d.range.to) + ' (KST)</small></h1>' +
+      '<span class="spacer"></span><div class="seg" role="group" aria-label="Date range">' + ranges + '</div>' +
+      '<button class="btn" id="refresh">Refresh</button>' + (DEMO ? '<a class="btn" style="display:inline-flex;align-items:center;text-decoration:none;color:inherit" href="stats.html">Exit demo</a>' : '<button class="btn" id="logout">Sign out</button>') + '</div></header>' +
+      '<main class="wrap">' +
+      (DEMO ? '<div class="demo-banner">Demo mode: these numbers are made up to show what the dashboard looks like.</div>' : '') +
+      (filters ? '<div class="bar-row"><span class="note">Filtered by</span>' + filters + '</div>' : '<div class="bar-row note">Click any row below to filter the whole dashboard by it.</div>') +
+      '<section class="kpis">' +
+        kpi('Page views', num(T.views), delta(T.views, P.views)) +
+        kpi('Visitors', num(T.visitors), delta(T.visitors, P.visitors), 'Unique per day') +
+        kpi('Visits', num(T.sessions), delta(T.sessions, P.sessions)) +
+        kpi('Avg. time on page', dur(T.avg_time), delta(T.avg_time, P.avg_time)) +
+        kpi('Single-page visits', (T.bounce == null ? '–' : T.bounce + '%'), '<div class="delta">left after one page</div>') +
+      '</section>' +
+      '<section class="grid">' +
+        '<div class="card wide"><div class="card-head"><div><h2>Daily traffic</h2><p class="sub">Page views and visitors per day</p></div>' +
+        '<div class="legend"><span style="--c:var(--s1)">Page views</span><span style="--c:var(--s2)">Visitors</span></div></div>' +
+        '<div class="chart" id="daily"></div>' + dailyTable(d.daily) + '</div>' +
+        orgCard(d) +
+        listCard('Pages', 'Most viewed pages, with average time on page', d.pages, 'path', function (r) { return esc(pageName(r.key)); }, true) +
+        listCard('Countries', '', d.countries, 'country', function (r) { return flag(r.key) + ' ' + esc(countryName(r.key)); }) +
+        listCard('Cities', '', d.cities, null, function (r) { var p = r.key.split('|'); return flag(p[1]) + ' ' + esc(p[0]) + '<small>' + esc(countryName(p[1])) + '</small>'; }) +
+        listCard('Where visitors came from', 'Referring sites (direct visits are not listed)', d.referrers, 'ref_host', function (r) { return esc(r.key); }) +
+        listCard('Organization domains', 'From reverse DNS of the visitor network (e.g. knu.ac.kr)', d.domains, 'domain', function (r) { return esc(r.key) + (r.org ? '<small>' + esc(r.org) + '</small>' : ''); }) +
+        '<div class="card"><h2>Devices &amp; software</h2><p class="sub">Share of page views</p><div class="mini">' +
+          miniList('Device', d.devices) + miniList('Browser', d.browsers) + miniList('OS', d.oses) + '</div></div>' +
+        '<div class="card"><h2>Time of day</h2><p class="sub">Page views by hour, Korea time</p><div class="chart" id="hours"></div></div>' +
+        sessionsCard(d.sessions) +
+      '</section>' +
+      '<footer>Visitor networks come from the IP address at the time of the visit; IP addresses themselves are not stored. ' +
+      'Visitors on home or mobile internet show up under their provider (e.g. KT, SK Broadband), not their institution. ' +
+      'Your own visits are not counted on this device. Updated ' + esc(when(d.generated)) + '.</footer></main>';
+
+    drawDaily(document.getElementById('daily'), d.daily, d.range);
+    drawHours(document.getElementById('hours'), d.hours);
+    bind();
+  }
+
+  function kpi(label, value, deltaHtml, hint) {
+    return '<div class="kpi"><div class="label">' + esc(label) + (hint ? ' <span class="tag">' + esc(hint) + '</span>' : '') + '</div><div class="value">' + value + '</div>' + (deltaHtml || '') + '</div>';
+  }
+
+  function rows(list, field, labelFn, showTime, extra) {
+    if (!list || !list.length) return '<div class="empty">No data for this period.</div>';
+    var max = Math.max.apply(null, list.map(function (r) { return r.views; }));
+    return '<ul class="list">' + list.map(function (r) {
+      var attr = field ? ' data-filter="' + field + '" data-value="' + esc(r.key) + '" tabindex="0"' : ' style="cursor:default"';
+      return '<li' + attr + ' title="' + esc(r.views + ' views · ' + (r.visitors || 0) + ' visitors') + '"><span class="name">' + labelFn(r) + (extra ? extra(r) : '') + '</span>' +
+        '<span class="num">' + num(r.views) + (showTime ? '<small>' + dur(r.avg_time) + '</small>' : '') + '</span>' +
+        '<span class="track"><i style="width:' + Math.max(2, r.views / max * 100) + '%"></i></span></li>';
+    }).join('') + '</ul>';
+  }
+
+  function listCard(title, sub, list, field, labelFn, showTime) {
+    return '<div class="card"><h2>' + esc(title) + '</h2><p class="sub">' + esc(sub || 'Page views') + '</p>' + rows(list, field, labelFn, showTime) + '</div>';
+  }
+
+  function orgCard(d) {
+    var all = d.orgs || [];
+    var list = state.orgView === 'inst' ? all.filter(function (r) { return r.net === 'org'; }) : all;
+    var tag = function (r) { return r.net === 'isp' ? '<span class="tag">internet provider</span>' : r.net === 'hosting' ? '<span class="tag">cloud / possibly a bot</span>' : ''; };
+    return '<div class="card wide"><div class="card-head"><div><h2>Visitor organizations</h2>' +
+      '<p class="sub">Who owns the network each visit came from: universities, research institutes, companies. Average time on page at right.</p></div>' +
+      '<div class="seg" role="group" aria-label="Organization view"><button data-orgview="inst" aria-pressed="' + (state.orgView === 'inst') + '">Institutions</button>' +
+      '<button data-orgview="all" aria-pressed="' + (state.orgView === 'all') + '">All networks</button></div></div>' +
+      rows(list.slice(0, 25), 'org', function (r) {
+        return flag(r.country) + ' ' + esc(r.key) + (r.domain ? '<small>' + esc(r.domain) + '</small>' : '') + '<small>last ' + esc(when(r.last_seen)) + '</small>';
+      }, true, tag) + '</div>';
+  }
+
+  function miniList(title, list) {
+    var total = (list || []).reduce(function (s, r) { return s + r.views; }, 0) || 1;
+    return '<div><h3>' + esc(title) + '</h3>' + ((list || []).slice(0, 5).map(function (r) {
+      return '<div style="display:flex;justify-content:space-between;font-size:.86rem;padding:2px 0"><span>' + esc(r.key.replace(/^[a-z]/, function (c) { return c.toUpperCase(); })) + '</span><span class="num">' + Math.round(r.views / total * 100) + '%</span></div>';
+    }).join('') || '<div class="empty">–</div>') + '</div>';
+  }
+
+  function sessionsCard(list) {
+    var body = (list || []).map(function (s) {
+      var who = s.net === 'org' ? '<b>' + esc(s.org) + '</b>' : esc(s.org || 'Unknown network') + (s.net === 'isp' ? ' <span class="tag">provider</span>' : s.net === 'hosting' ? ' <span class="tag">cloud</span>' : '');
+      var pages = (s.path_list || '').split(' → ').map(pageName).join(' → ');
+      return '<tr><td class="n">' + esc(when(s.start)) + '</td><td>' + who + (s.domain ? '<div class="path">' + esc(s.domain) + '</div>' : '') + '</td>' +
+        '<td style="white-space:nowrap">' + flag(s.country) + ' ' + esc(s.city || countryName(s.country)) + '</td>' +
+        '<td><div class="path">' + esc(pages) + '</div></td><td class="n">' + s.pages + '</td><td class="n">' + dur(s.time) + '</td>' +
+        '<td>' + esc(s.ref_host || 'direct') + '</td><td>' + esc(s.device) + '</td></tr>';
+    }).join('');
+    return '<div class="card wide"><h2>Recent visits</h2><p class="sub">Last 100 visits, newest first. A visit is one browser tab session.</p>' +
+      (body ? '<div class="table-wrap"><table><thead><tr><th>Time (KST)</th><th>Network</th><th>Location</th><th>Pages viewed</th><th>Pages</th><th>Time</th><th>Came from</th><th>Device</th></tr></thead><tbody>' + body + '</tbody></table></div>' : '<div class="empty">No visits in this period.</div>') + '</div>';
+  }
+
+  function dailyTable(daily) {
+    return '<details><summary>Show as table</summary><div class="table-wrap"><table><thead><tr><th>Date</th><th>Page views</th><th>Visitors</th></tr></thead><tbody>' +
+      (daily || []).slice().reverse().map(function (r) { return '<tr><td>' + esc(r.day) + '</td><td class="n">' + num(r.views) + '</td><td class="n">' + num(r.visitors) + '</td></tr>'; }).join('') +
+      '</tbody></table></div></details>';
+  }
+
+  /* ---------- charts (plain SVG) ---------- */
+  function niceStep(v) { var p = Math.pow(10, Math.floor(Math.log10(v))), n = v / p; return Math.max(1, (n <= 1 ? 1 : n <= 2 ? 2 : n <= 5 ? 5 : 10) * p); }
+
+  function drawDaily(el, daily, range) {
+    var byDay = {}; (daily || []).forEach(function (r) { byDay[r.day] = r; });
+    var days = [], start = new Date(range.from + 'T00:00:00Z');
+    for (var i = 0; i < range.days; i++) { var k = new Date(start.getTime() + i * 864e5).toISOString().slice(0, 10); days.push({ day: k, views: (byDay[k] || {}).views || 0, visitors: (byDay[k] || {}).visitors || 0 }); }
+    var W = Math.max(320, el.clientWidth || 900), H = 240, L = 40, R = 12, Tp = 10, B = 26;
+    var step = niceStep((Math.max.apply(null, days.map(function (d) { return d.views; })) || 1) / 4), ticks = Math.ceil((Math.max.apply(null, days.map(function (d) { return d.views; })) || 1) / step), max = step * ticks;
+    var x = function (i) { return L + (days.length === 1 ? (W - L - R) / 2 : i * (W - L - R) / (days.length - 1)); };
+    var y = function (v) { return Tp + (H - Tp - B) * (1 - v / max); };
+    var grid = '';
+    for (var t = 0; t <= ticks; t++) { var v = max * t / ticks; grid += '<line x1="' + L + '" x2="' + (W - R) + '" y1="' + y(v) + '" y2="' + y(v) + '" stroke="var(--grid)"/><text class="axis" x="' + (L - 6) + '" y="' + (y(v) + 4) + '" text-anchor="end">' + num(v) + '</text>'; }
+    var every = Math.ceil(days.length / Math.max(2, Math.floor((W - L) / 70)));
+    var labels = days.map(function (d, i) { if (i % every) return ''; var dt = new Date(d.day + 'T00:00:00Z'); return '<text class="axis" x="' + x(i) + '" y="' + (H - 6) + '" text-anchor="middle">' + dt.toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' }) + '</text>'; }).join('');
+    var line = function (k) { return days.map(function (d, i) { return (i ? 'L' : 'M') + x(i).toFixed(1) + ' ' + y(d[k]).toFixed(1); }).join(''); };
+    var area = line('views') + 'L' + x(days.length - 1) + ' ' + y(0) + 'L' + x(0) + ' ' + y(0) + 'Z';
+    el.innerHTML = '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Daily page views and visitors">' + grid + labels +
+      '<path d="' + area + '" fill="var(--s1)" opacity=".08"/>' +
+      '<path d="' + line('views') + '" fill="none" stroke="var(--s1)" stroke-width="2" stroke-linejoin="round"/>' +
+      '<path d="' + line('visitors') + '" fill="none" stroke="var(--s2)" stroke-width="2" stroke-linejoin="round"/>' +
+      '<line id="xh" y1="' + Tp + '" y2="' + y(0) + '" stroke="var(--muted)" stroke-dasharray="3 3" opacity="0"/>' +
+      '<circle id="d1" r="4" fill="var(--s1)" stroke="var(--surface)" stroke-width="2" opacity="0"/><circle id="d2" r="4" fill="var(--s2)" stroke="var(--surface)" stroke-width="2" opacity="0"/>' +
+      '<rect x="' + L + '" y="0" width="' + (W - L - R) + '" height="' + H + '" fill="transparent" id="hit"/></svg><div class="tip" id="tip"></div>';
+    var svg = el.querySelector('svg'), tip = el.querySelector('#tip'), xh = el.querySelector('#xh'), d1 = el.querySelector('#d1'), d2 = el.querySelector('#d2');
+    function move(ev) {
+      var r = svg.getBoundingClientRect(), px = (ev.clientX - r.left) * W / r.width;
+      var i = Math.max(0, Math.min(days.length - 1, Math.round((px - L) / ((W - L - R) / Math.max(1, days.length - 1)))));
+      var d = days[i], cx = x(i);
+      xh.setAttribute('x1', cx); xh.setAttribute('x2', cx); xh.setAttribute('opacity', 1);
+      d1.setAttribute('cx', cx); d1.setAttribute('cy', y(d.views)); d1.setAttribute('opacity', 1);
+      d2.setAttribute('cx', cx); d2.setAttribute('cy', y(d.visitors)); d2.setAttribute('opacity', 1);
+      var dt = new Date(d.day + 'T00:00:00Z').toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', timeZone: 'UTC' });
+      tip.innerHTML = '<b>' + dt + '</b><br>' + num(d.views) + ' page views · ' + num(d.visitors) + ' visitors';
+      tip.style.left = Math.max(90, Math.min(r.width - 90, cx * r.width / W)) + 'px'; tip.style.top = (y(d.views) * r.height / H) + 'px'; tip.classList.add('on');
+    }
+    function out() { tip.classList.remove('on'); [xh, d1, d2].forEach(function (n) { n.setAttribute('opacity', 0); }); }
+    svg.addEventListener('pointermove', move); svg.addEventListener('pointerleave', out);
+  }
+
+  function drawHours(el, hours) {
+    var v = []; for (var h = 0; h < 24; h++) v.push(0);
+    (hours || []).forEach(function (r) { v[r.hour] = r.views; });
+    var W = Math.max(300, el.clientWidth || 420), H = 160, L = 4, B = 20, Tp = 6, gap = 2;
+    var max = Math.max.apply(null, v) || 1, bw = (W - L * 2) / 24;
+    var bars = v.map(function (n, h) {
+      var bh = (H - B - Tp) * n / max, x = L + h * bw + gap / 2, y = H - B - bh, w = bw - gap, rr = Math.min(4, w / 2, bh);
+      var path = bh ? 'M' + x + ' ' + (H - B) + 'V' + (y + rr) + 'Q' + x + ' ' + y + ' ' + (x + rr) + ' ' + y + 'H' + (x + w - rr) + 'Q' + (x + w) + ' ' + y + ' ' + (x + w) + ' ' + (y + rr) + 'V' + (H - B) + 'Z' : '';
+      return '<g><title>' + (h < 10 ? '0' : '') + h + ':00 · ' + num(n) + ' page views</title>' +
+        '<rect x="' + (L + h * bw) + '" y="0" width="' + bw + '" height="' + H + '" fill="transparent"/>' +
+        (path ? '<path d="' + path + '" fill="var(--s1)"/>' : '') +
+        (h % 6 === 0 ? '<text class="axis" x="' + (x + w / 2) + '" y="' + (H - 4) + '" text-anchor="middle">' + h + ':00</text>' : '') + '</g>';
+    }).join('');
+    el.innerHTML = '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Page views by hour of day"><line x1="' + L + '" x2="' + (W - L) + '" y1="' + (H - B) + '" y2="' + (H - B) + '" stroke="var(--line)"/>' + bars + '</svg>';
+  }
+
+  /* ---------- events ---------- */
+  function bind() {
+    app.querySelectorAll('[data-days]').forEach(function (b) { b.onclick = function () { state.days = +b.dataset.days; load(); }; });
+    app.querySelectorAll('[data-orgview]').forEach(function (b) { b.onclick = function () { state.orgView = b.dataset.orgview; render(); }; });
+    app.querySelectorAll('[data-filter]').forEach(function (li) {
+      var go = function () { state.filters[li.dataset.filter] = li.dataset.value; load(); window.scrollTo({ top: 0, behavior: 'smooth' }); };
+      li.onclick = go; li.onkeydown = function (e) { if (e.key === 'Enter') go(); };
+    });
+    app.querySelectorAll('[data-unfilter]').forEach(function (b) { b.onclick = function () { delete state.filters[b.dataset.unfilter]; load(); }; });
+    var r = document.getElementById('refresh'); if (r) r.onclick = load;
+    var o = document.getElementById('logout'); if (o) o.onclick = function () { setKey(''); state.data = null; showLogin(); };
+  }
+  var resizeT; window.addEventListener('resize', function () { clearTimeout(resizeT); resizeT = setTimeout(function () { if (state.data) render(); }, 150); });
+
+  /* ---------- demo data ---------- */
+  function demoData(days, filters) {
+    var seed = 7; function rnd() { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }
+    var scale = Object.keys(filters).length ? 0.15 : 1;
+    var today = new Date(Date.now() + 9 * 3600e3), daily = [];
+    for (var i = days - 1; i >= 0; i--) {
+      var dt = new Date(today.getTime() - i * 864e5), wd = dt.getUTCDay(), base = (wd === 0 || wd === 6 ? 14 : 30) * (1 + 0.3 * Math.sin(i / 9));
+      var views = Math.round(base * (0.7 + rnd() * 0.6) * scale), visitors = Math.round(views * (0.38 + rnd() * 0.12));
+      daily.push({ day: dt.toISOString().slice(0, 10), views: views, visitors: visitors });
+    }
+    var tv = daily.reduce(function (s, r) { return s + r.views; }, 0), tvis = daily.reduce(function (s, r) { return s + r.visitors; }, 0);
+    function share(list) { var tot = list.reduce(function (s, r) { return s + r[1]; }, 0); return list.map(function (r) { var v = Math.max(1, Math.round(tv * r[1] / tot)); return { key: r[0], views: v, visitors: Math.max(1, Math.round(v * 0.45)), avg_time: Math.round(20 + rnd() * 150) }; }).sort(function (a, b) { return b.views - a.views; }); }
+    var orgs = [
+      ['Kyungpook National University', 'KR', 'knu.ac.kr', 'org', 30], ['Korea Telecom', 'KR', 'kornet.net', 'isp', 22], ['SK Broadband Co Ltd', 'KR', 'skbroadband.com', 'isp', 15],
+      ['Korea Institute of Energy Research', 'KR', 'kier.re.kr', 'org', 6], ['Seoul National University', 'KR', 'snu.ac.kr', 'org', 5], ['KAIST', 'KR', 'kaist.ac.kr', 'org', 4],
+      ['Samsung Electronics', 'KR', 'samsung.com', 'org', 3], ['LG Uplus Corp.', 'KR', 'lguplus.co.kr', 'isp', 8], ['Massachusetts Institute of Technology', 'US', 'mit.edu', 'org', 2],
+      ['Korea Electric Power Corporation', 'KR', 'kepco.co.kr', 'org', 2], ['Technical University of Munich', 'DE', 'tum.de', 'org', 1.5], ['Amazon.com, Inc.', 'US', '', 'hosting', 2],
+      ['Pohang University of Science and Technology', 'KR', 'postech.ac.kr', 'org', 1.5], ['University of Tokyo', 'JP', 'u-tokyo.ac.jp', 'org', 1], ['Comcast Cable Communications', 'US', 'comcast.net', 'isp', 2]
+    ];
+    var orgRows = share(orgs.map(function (o) { return [o[0], o[4]]; })).map(function (r) {
+      var o = orgs.find(function (x) { return x[0] === r.key; });
+      return Object.assign(r, { country: o[1], domain: o[2], net: o[3], last_seen: Date.now() - Math.round(rnd() * 5 * 864e5) });
+    });
+    var pages = share([['/', 40], ['/publications', 18], ['/people', 14], ['/professor', 10], ['/research', 8], ['/projects', 5], ['/news', 4], ['/photos', 3], ['/patents', 2]]);
+    var sessions = [];
+    for (var s = 0; s < 40; s++) {
+      var o = orgs[Math.floor(rnd() * orgs.length)], n = 1 + Math.floor(rnd() * 4), path = [];
+      for (var p = 0; p < n; p++) path.push(pages[Math.floor(rnd() * pages.length)].key);
+      var cities = { KR: ['Daegu', 'Seoul', 'Daejeon', 'Pohang'], US: ['Cambridge', 'Ashburn'], DE: ['Munich'], JP: ['Tokyo'] }[o[1]];
+      sessions.push({ sid: 's' + s, start: Date.now() - s * 3.1 * 3600e3 * (0.5 + rnd()), pages: n, time: Math.round(n * (15 + rnd() * 120)), org: o[0], domain: o[2], net: o[3],
+        city: cities[Math.floor(rnd() * cities.length)], country: o[1], device: rnd() > 0.3 ? 'desktop' : 'mobile', ref_host: ['', 'google.com', 'scholar.google.com', 'knu.ac.kr', ''][Math.floor(rnd() * 5)], path_list: path.join(' → ') });
+    }
+    sessions.sort(function (a, b) { return b.start - a.start; });
+    var hours = []; for (var h = 0; h < 24; h++) hours.push({ hour: h, views: Math.round(tv / 24 * (h >= 9 && h <= 18 ? 1.8 : h < 7 ? 0.25 : 0.8) * (0.8 + rnd() * 0.4)) });
+    return {
+      range: { from: daily[0].day, to: daily[daily.length - 1].day, days: days }, generated: Date.now(),
+      totals: { views: tv, visitors: tvis, sessions: Math.round(tv * 0.55), avg_time: 74, bounce: 58 },
+      previous: { views: Math.round(tv * 0.86), visitors: Math.round(tvis * 0.9), sessions: Math.round(tv * 0.5), avg_time: 69 },
+      daily: daily, pages: pages, orgs: orgRows,
+      countries: share([['KR', 82], ['US', 7], ['CN', 3], ['JP', 2.5], ['DE', 2], ['VN', 1.5], ['IN', 1]]),
+      cities: share([['Daegu|KR', 35], ['Seoul|KR', 25], ['Daejeon|KR', 8], ['Pohang|KR', 4], ['Cambridge|US', 2], ['Munich|DE', 1.5], ['Tokyo|JP', 1]]),
+      domains: share(orgs.filter(function (o) { return o[2]; }).map(function (o) { return [o[2], o[4]]; })).map(function (r) { var o = orgs.find(function (x) { return x[2] === r.key; }); return Object.assign(r, { org: o[0], net: o[3] }); }),
+      referrers: share([['google.com', 40], ['scholar.google.com', 22], ['knu.ac.kr', 15], ['github.com', 6], ['linkedin.com', 4], ['naver.com', 8]]),
+      devices: share([['desktop', 72], ['mobile', 25], ['tablet', 3]]), browsers: share([['Chrome', 55], ['Safari', 20], ['Edge', 12], ['Whale', 8], ['Firefox', 5]]),
+      oses: share([['Windows', 50], ['macOS', 22], ['iOS', 14], ['Android', 12], ['Linux', 2]]), langs: [], hours: hours, sessions: sessions
+    };
+  }
+
+  load();
+})();
+</script>
+</body>
+</html>
