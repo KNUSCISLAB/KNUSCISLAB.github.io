@@ -38,6 +38,21 @@
     return String(text || '').split(/\n\s*\n/).filter(function (x) { return x.trim(); })
       .map(function (x) { return '<p>' + esc(x.trim()).replace(/\n/g, '<br>') + '</p>'; }).join('');
   }
+  // Long-form text: blank lines split blocks; a short line without a period becomes a subheading,
+  // lines starting with "* " or "- " become a list, and "Label: text" items get a bold label.
+  function richText(text) {
+    return String(text || '').replace(/\r/g, '').split(/\n\s*\n/).map(function (b) { return b.trim(); }).filter(Boolean).map(function (b) {
+      var lines = b.split('\n').map(function (l) { return l.trim(); }).filter(Boolean);
+      if (lines.every(function (l) { return /^[*\-•]\s+/.test(l); })) {
+        return '<ul class="rich-list">' + lines.map(function (l) {
+          var x = l.replace(/^[*\-•]\s+/, ''), i = x.indexOf(': ');
+          return '<li>' + (i > 0 && i < 120 ? '<b>' + esc(x.slice(0, i)) + '</b>: ' + esc(x.slice(i + 2)) : esc(x)) + '</li>';
+        }).join('') + '</ul>';
+      }
+      if (lines.length === 1 && lines[0].length < 40 && !/[.。:]$/.test(lines[0])) return '<h4 class="rich-h">' + esc(lines[0]) + '</h4>';
+      return '<p>' + lines.map(esc).join('<br>') + '</p>';
+    }).join('');
+  }
   function href(page, extra) {
     var q = new URLSearchParams(extra || {});
     if (LANG === 'ko') q.set('lang', 'ko');
@@ -422,7 +437,7 @@
       (pr.homepages && pr.homepages.length ? '<div class="wide"><dt>Homepage</dt><dd>' + pr.homepages.map(function (u) { return '<a href="' + esc(u) + '" target="_blank" rel="noopener">' + esc(u.replace(/^https?:\/\//, '').replace(/\/$/, '')) + '</a>'; }).join('<br>') + '</dd></div>' : '') +
       (loc(pr, 'office') ? '<div class="wide"><dt>Office</dt><dd>' + esc(loc(pr, 'office')).replace(/\n/g, '<br>') + '</dd></div>' : '') +
       '</dl>' + (links.length ? '<div class="actions" style="margin-bottom:20px">' + links.join('') + '</div>' : '') +
-      '<div class="bio"><h3 class="sub-h" style="margin-top:8px">' + esc(t('bio')) + '</h3>' + paras(loc(pr, 'bio')) + '</div>' +
+      '<div class="bio"><h3 class="sub-h" style="margin-top:8px">' + esc(t('bio')) + '</h3>' + richText(loc(pr, 'bio')) + '</div>' +
       (pr.awards && pr.awards.length ? '<details class="more-box"><summary>' + esc(t('awards')) + ' (' + pr.awards.length + ')</summary><ul>' + sortNews(pr.awards).map(function (a) {
         return '<li>' + fmtDate(a.date) + '. ' + esc(loc(a, 'title')) + '</li>'; }).join('') + '</ul></details>' : '') +
       (acts.length ? '<details class="more-box"><summary>' + esc(t('activities')) + '</summary><ul>' + acts.map(function (a) { return '<li>' + esc(a) + '</li>'; }).join('') + '</ul></details>' : '') +

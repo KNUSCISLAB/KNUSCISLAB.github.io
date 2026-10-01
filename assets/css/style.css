@@ -65,6 +65,10 @@ button { font: inherit; }
 .bar.no-knu .brand .knu { display: none; }
 @media (max-width: 460px) { .brand .knu { display: none; } }
 .contact-list .wide { grid-column: 1 / -1; }
+.bio .rich-h { font-size: 1.02rem; font-weight: 600; margin: 22px 0 6px; }
+.bio .rich-list { margin: 8px 0 14px; padding-left: 1.2em; list-style: disc; }
+.bio .rich-list li { margin: 0 0 8px; }
+.bio .rich-list b { font-weight: 600; }
 .mark { flex: none; width: 38px; height: 38px; border-radius: 9px; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; }
 .mark svg { width: 26px; height: 26px; }
 .nav { margin-left: auto; display: flex; align-items: center; gap: 2px; }
