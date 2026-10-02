@@ -255,7 +255,7 @@ footer { color: var(--muted); font-size: .8rem; padding: 24px 0 40px; }
   function miniList(title, list) {
     var total = (list || []).reduce(function (s, r) { return s + r.views; }, 0) || 1;
     return '<div><h3>' + esc(title) + '</h3>' + ((list || []).slice(0, 5).map(function (r) {
-      return '<div style="display:flex;justify-content:space-between;font-size:.86rem;padding:2px 0"><span>' + esc(r.key.replace(/^[a-z]/, function (c) { return c.toUpperCase(); })) + '</span><span class="num">' + Math.round(r.views / total * 100) + '%</span></div>';
+      return '<div style="display:flex;justify-content:space-between;font-size:.86rem;padding:2px 0"><span>' + esc(/^[a-z]+$/.test(r.key) ? r.key[0].toUpperCase() + r.key.slice(1) : r.key) + '</span><span class="num">' + Math.round(r.views / total * 100) + '%</span></div>';
     }).join('') || '<div class="empty">–</div>') + '</div>';
   }
 
