@@ -2,7 +2,7 @@
    No cookies; the session id lives only in this tab (sessionStorage).
    To stop counting your own visits on a device, open any page with ?notrack (undo with ?track). */
 (function () {
-  var ENDPOINT = 'https://scislab-analytics.WORKERS_SUBDOMAIN.workers.dev';
+  var ENDPOINT = 'https://scislab-analytics.scislabknu.workers.dev';
   if (ENDPOINT.indexOf('WORKERS_SUBDOMAIN') !== -1) return;
   if (!/^(knuscislab\.github\.io|localhost|127\.0\.0\.1)$/.test(location.hostname)) return;
   if (/^\/(admin|stats)/.test(location.pathname)) return;
