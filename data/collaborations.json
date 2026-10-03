@@ -4,209 +4,239 @@
     "country_ko": "미국",
     "name": "University of Southern California",
     "note_en": "",
-    "note_ko": ""
+    "note_ko": "",
+    "show": true
   },
   {
     "country_en": "United States",
     "country_ko": "미국",
     "name": "Drexel University",
     "note_en": "",
-    "note_ko": ""
+    "note_ko": "",
+    "show": true
   },
   {
     "country_en": "United States",
     "country_ko": "미국",
     "name": "Prairie View A&M University",
     "note_en": "",
-    "note_ko": ""
+    "note_ko": "",
+    "show": true
   },
   {
     "country_en": "United States",
     "country_ko": "미국",
     "name": "Arizona State University",
     "note_en": "",
-    "note_ko": ""
+    "note_ko": "",
+    "show": true
   },
   {
     "country_en": "United States",
     "country_ko": "미국",
     "name": "University of Tennessee, Knoxville",
     "note_en": "",
-    "note_ko": ""
+    "note_ko": "",
+    "show": true
   },
   {
     "country_en": "Canada",
     "country_ko": "캐나다",
     "name": "University of Ottawa",
     "note_en": "",
-    "note_ko": ""
+    "note_ko": "",
+    "show": false
   },
   {
     "country_en": "Germany",
     "country_ko": "독일",
     "name": "Technische Hochschule Ulm (Ulm University of Applied Sciences)",
     "note_en": "",
-    "note_ko": ""
+    "note_ko": "",
+    "show": true
   },
   {
     "country_en": "Germany",
     "country_ko": "독일",
     "name": "Hamburg University of Technology",
     "note_en": "",
-    "note_ko": ""
+    "note_ko": "",
+    "show": true
   },
   {
     "country_en": "Germany",
     "country_ko": "독일",
     "name": "Hochschule Bremen (City University of Applied Sciences)",
     "note_en": "",
-    "note_ko": ""
+    "note_ko": "",
+    "show": true
   },
   {
     "country_en": "Germany",
     "country_ko": "독일",
     "name": "University of Hohenheim",
     "note_en": "",
-    "note_ko": ""
+    "note_ko": "",
+    "show": true
   },
   {
     "country_en": "United Kingdom",
     "country_ko": "영국",
     "name": "University of Liverpool",
     "note_en": "",
-    "note_ko": ""
+    "note_ko": "",
+    "show": false
   },
   {
     "country_en": "United Kingdom",
     "country_ko": "영국",
     "name": "University of Bristol",
     "note_en": "",
-    "note_ko": ""
+    "note_ko": "",
+    "show": false
   },
   {
     "country_en": "Australia",
     "country_ko": "호주",
     "name": "UNSW Sydney",
     "note_en": "",
-    "note_ko": ""
+    "note_ko": "",
+    "show": true
   },
   {
     "country_en": "Australia",
     "country_ko": "호주",
     "name": "Deakin University",
     "note_en": "",
-    "note_ko": ""
+    "note_ko": "",
+    "show": true
   },
   {
     "country_en": "Australia",
     "country_ko": "호주",
     "name": "The University of Queensland",
     "note_en": "",
-    "note_ko": ""
+    "note_ko": "",
+    "show": true
   },
   {
     "country_en": "Italy",
     "country_ko": "이탈리아",
     "name": "University of Padua",
     "note_en": "",
-    "note_ko": ""
+    "note_ko": "",
+    "show": false
   },
   {
     "country_en": "United Arab Emirates",
     "country_ko": "아랍에미리트",
     "name": "Canadian University Dubai",
     "note_en": "",
-    "note_ko": ""
+    "note_ko": "",
+    "show": false
   },
   {
     "country_en": "India",
     "country_ko": "인도",
     "name": "Jamia Millia Islamia",
     "note_en": "",
-    "note_ko": ""
+    "note_ko": "",
+    "show": false
   },
   {
     "country_en": "India",
     "country_ko": "인도",
     "name": "University of Petroleum and Energy Studies",
     "note_en": "",
-    "note_ko": ""
+    "note_ko": "",
+    "show": false
   },
   {
     "country_en": "South Africa",
     "country_ko": "남아프리카공화국",
     "name": "University of Johannesburg",
     "note_en": "",
-    "note_ko": ""
+    "note_ko": "",
+    "show": false
   },
   {
     "country_en": "Nigeria",
     "country_ko": "나이지리아",
     "name": "Covenant University",
     "note_en": "",
-    "note_ko": ""
+    "note_ko": "",
+    "show": false
   },
   {
     "country_en": "Nigeria",
     "country_ko": "나이지리아",
     "name": "University of Calabar",
     "note_en": "",
-    "note_ko": ""
+    "note_ko": "",
+    "show": false
   },
   {
     "country_en": "Nigeria",
     "country_ko": "나이지리아",
     "name": "University of Port Harcourt",
     "note_en": "",
-    "note_ko": ""
+    "note_ko": "",
+    "show": false
   },
   {
     "country_en": "Nigeria",
     "country_ko": "나이지리아",
     "name": "Delta State University",
     "note_en": "",
-    "note_ko": ""
+    "note_ko": "",
+    "show": false
   },
   {
     "country_en": "Nigeria",
     "country_ko": "나이지리아",
     "name": "Michael Okpara University of Agriculture, Umudike",
     "note_en": "",
-    "note_ko": ""
+    "note_ko": "",
+    "show": false
   },
   {
     "country_en": "Nigeria",
     "country_ko": "나이지리아",
     "name": "Federal Polytechnic Mubi",
     "note_en": "",
-    "note_ko": ""
+    "note_ko": "",
+    "show": false
   },
   {
     "country_en": "Nigeria",
     "country_ko": "나이지리아",
     "name": "Alex Ekwueme Federal University",
     "note_en": "",
-    "note_ko": ""
+    "note_ko": "",
+    "show": false
   },
   {
     "country_en": "Nigeria",
     "country_ko": "나이지리아",
     "name": "Nigerian Army University Biu",
     "note_en": "",
-    "note_ko": ""
+    "note_ko": "",
+    "show": false
   },
   {
     "country_en": "Cameroon",
     "country_ko": "카메룬",
     "name": "University of Buea",
     "note_en": "",
-    "note_ko": ""
+    "note_ko": "",
+    "show": false
   },
   {
     "country_en": "Algeria",
     "country_ko": "알제리",
     "name": "Pan African University Institute for Water and Energy Sciences (PAUWES), Tlemcen",
     "note_en": "",
-    "note_ko": ""
+    "note_ko": "",
+    "show": false
   }
 ]

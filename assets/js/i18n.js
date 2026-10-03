@@ -45,7 +45,7 @@ window.I18N = {
     registered_on: 'registered {d}', application: 'Application', publication_no: 'Publication',
     // projects
     projects_title: 'Projects', projects_lead: 'Research projects and education programs led or joined by the lab.', proj_pi: 'Principal investigator', proj_co: 'Co-investigator and participating faculty',
-    collab: 'International collaboration', collab_lead: 'We work with {i} institutions in {c} countries, through joint research since 2018.', awards: 'Awards and honors',
+    collab: 'International collaboration', collab_lead: 'Since 2018, we have carried out joint research with partners in {c} countries.', awards: 'Awards and honors',
     photos_title: 'Photos', photos_lead: 'Conferences, workshops, graduations, and everyday life in the lab.', photos_n: '{n} photos', no_photos: 'No photos yet.', prev: 'Previous photo', next: 'Next photo', close: 'Close',
     // news
     news_title: 'News', news_lead: 'Papers, awards, talks, and lab events.',
@@ -96,7 +96,7 @@ window.I18N = {
     pat_patent_kr: '국내 등록특허', pat_patent_us: '미국 등록특허', pat_pending: '출원 중', pat_program: '프로그램 등록 (한국저작권위원회)',
     registered_on: '등록 {d}', application: '출원', publication_no: '공개',
     projects_title: '연구과제', projects_lead: '연구실이 수행하거나 참여한 연구과제와 인재양성 사업입니다.', proj_pi: '연구책임자', proj_co: '공동연구원·참여연구원',
-    collab: '국제 공동연구', collab_lead: '2018년 이후 공동연구 기준으로 {c}개국 {i}개 기관과 협력하고 있습니다.', awards: '수상',
+    collab: '국제 공동연구', collab_lead: '2018년 이후 {c}개국의 연구자들과 공동연구를 수행하고 있습니다.', awards: '수상',
     photos_title: '사진', photos_lead: '학술대회, 워크숍, 졸업식, 그리고 연구실의 일상입니다.', photos_n: '사진 {n}장', no_photos: '아직 사진이 없습니다.', prev: '이전 사진', next: '다음 사진', close: '닫기',
     news_title: '소식', news_lead: '논문, 수상, 발표, 연구실 행사 소식입니다.',
     cat_all: '전체', cat_publication: '논문', cat_award: '수상·특허', cat_talk: '발표·강연', cat_project: '과제·협력', cat_recruiting: '모집', cat_event: '연구실 소식',

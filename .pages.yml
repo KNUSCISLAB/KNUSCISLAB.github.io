@@ -388,6 +388,7 @@ content:
       - { name: country_ko, label: "국가 (한글)", type: string }
       - { name: note_en, label: "비고 (영문, 선택)", type: string, description: "예: Visiting scholar (2023–2024)" }
       - { name: note_ko, label: "비고 (한글, 선택)", type: string }
+      - { name: show, label: "목록 공개 (Projects 페이지에서 이 나라를 누르면 기관 이름이 펼쳐짐)", type: boolean, default: false }
 
   # ---------------- 기본 설정 ----------------
   - name: site

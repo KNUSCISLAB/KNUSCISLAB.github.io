@@ -844,6 +844,11 @@ collections:
         label: 비고 (한글, 선택)
         widget: string
         required: false
+    - name: show
+      label: 목록 공개 (Projects 페이지에서 이 나라를 누르면 기관 이름이 펼쳐짐)
+      widget: boolean
+      default: false
+      required: false
 - name: site
   label: 홈페이지 기본 설정 (Settings)
   files:

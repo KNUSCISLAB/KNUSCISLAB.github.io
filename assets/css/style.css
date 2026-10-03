@@ -264,6 +264,15 @@ html[lang="ko"] .hero h1 { max-width: 26ch; line-height: 1.2; }
 .type-block .year-h { font-size: 1.08rem; margin-top: 24px; }
 .timeline .role { display: block; font-size: .82rem; color: var(--accent); font-weight: 600; }
 .timeline time .badge { display: block; width: max-content; margin-top: 6px; }
+.country-list { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+.country-list .country { display: inline-block; padding: 8px 16px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); font: inherit; font-size: .95rem; color: var(--muted); }
+.country-list button.country { color: var(--ink); border-color: var(--accent); cursor: pointer; }
+.country-list button.country::after { content: " ▾"; color: var(--accent); }
+.country-list button.country[aria-expanded="true"] { background: var(--accent); color: var(--accent-ink); }
+.country-list button.country[aria-expanded="true"]::after { content: " ▴"; color: inherit; }
+.country-panel { margin-top: 14px; padding: 16px 20px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); max-width: 560px; }
+.country-panel h3 { font-size: 1rem; font-weight: 600; margin-bottom: 6px; }
+.country-panel li { padding: 4px 0; font-size: .95rem; }
 .collab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin-top: 20px; }
 .collab { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 18px; }
 .collab h3 { font-size: 1rem; font-weight: 600; margin-bottom: 8px; }

@@ -601,16 +601,27 @@
     if (col.length) {
       var countries = [];
       col.forEach(function (c) { if (countries.indexOf(c.country_en) < 0) countries.push(c.country_en); });
+      // Every country is listed; only countries with institutions marked "show" open into a list when clicked.
       html += '<section class="sec" id="collaboration"><div class="wrap"><div class="sec-head"><h2>' + esc(t('collab')) + '</h2></div><p class="muted" style="max-width:70ch">' +
-        esc(t('collab_lead', { c: countries.length, i: col.length })) + '</p><div class="collab-grid">' + countries.map(function (name) {
-          var list = col.filter(function (c) { return c.country_en === name; });
-          return '<div class="collab"><h3>' + esc(loc(list[0], 'country')) + ' <span>' + list.length + '</span></h3><ul>' + list.map(function (c) {
-            var note = loc(c, 'note');
-            return '<li>' + esc(c.name) + (note ? '<span>' + esc(note) + '</span>' : '') + '</li>';
-          }).join('') + '</ul></div>';
-        }).join('') + '</div></div></section>';
+        esc(t('collab_lead', { c: countries.length })) + '</p><ul class="country-list">' + countries.map(function (name, i) {
+          var list = col.filter(function (c) { return c.country_en === name; }), open = list.filter(function (c) { return c.show; });
+          var label = esc(loc(list[0], 'country'));
+          return '<li>' + (open.length ? '<button type="button" class="country open-able" aria-expanded="false" aria-controls="cpanel" data-c="' + i + '">' + label + '</button>' : '<span class="country">' + label + '</span>') + '</li>';
+        }).join('') + '</ul><div id="cpanel" class="country-panel" hidden></div></div></section>';
+      var collabCountries = countries;
     }
     fill('#content', html);
+    var panel = $('#cpanel');
+    if (panel) $('#collaboration').addEventListener('click', function (e) {
+      var b = e.target.closest('.open-able'); if (!b) return;
+      var wasOpen = b.getAttribute('aria-expanded') === 'true';
+      document.querySelectorAll('.open-able').forEach(function (x) { x.setAttribute('aria-expanded', 'false'); });
+      if (wasOpen) { panel.hidden = true; return; }
+      var name = collabCountries[+b.getAttribute('data-c')];
+      var list = col.filter(function (c) { return c.country_en === name && c.show; });
+      panel.innerHTML = '<h3>' + esc(loc(list[0], 'country')) + '</h3><ul>' + list.map(function (c) { return '<li>' + esc(c.name) + '</li>'; }).join('') + '</ul>';
+      panel.hidden = false; b.setAttribute('aria-expanded', 'true');
+    });
     if (location.hash) { var el = document.getElementById(location.hash.slice(1)); if (el) el.scrollIntoView(); }
   };
 
