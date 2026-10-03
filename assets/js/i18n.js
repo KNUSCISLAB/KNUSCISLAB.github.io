@@ -69,7 +69,7 @@ window.I18N = {
     research: '연구 분야', research_lead: '두 연구 축은 강화학습, 딥러닝, 파운데이션 모델이라는 같은 도구를 실제 시스템에서 검증합니다.',
     all_research: '연구 주제 전체 보기',
     recent_pubs: '최근 논문', all_pubs_n: '국제 저널 논문 {n}편 전체 보기',
-    news: '소식', all_news: '소식 전체 보기', join_title: '연구실 지원 안내', email_prof: '교수님께 이메일 보내기', not_recruiting: '현재는 모집 중이 아니지만, 관심이 있다면 언제든 연락 주세요.',
+    news: '소식', all_news: '소식 전체 보기', join_title: '연구실 지원 안내', email_prof: '이메일 보내기', not_recruiting: '현재는 모집 중이 아니지만, 관심이 있다면 언제든 연락 주세요.',
     research_title: '연구 분야', research_page_lead: 'Energy AI와 Industrial AI는 연구실의 두 축입니다. 두 분야 모두 현장에서 믿고 쓸 수 있는 학습 시스템을 목표로 합니다.',
     energy_ai: 'Energy AI', industrial_ai: 'Industrial AI', projects: '연구 과제', ongoing: '진행 중', completed: '완료',
     programs: '참여 사업 및 센터', present: '현재', related_pubs: '관련 논문', other_research: '기타 연구', other_research_lead: '두 메인 분야 외에 함께 수행하는 연구입니다.', show_all_n: '논문 {n}편 모두 보기',
