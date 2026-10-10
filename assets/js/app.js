@@ -430,11 +430,13 @@
     var prof = '<section class="wrap prof" aria-labelledby="prof-name">' +
       '<div class="photo">' + (pr.photo ? '<img src="' + esc(pr.photo) + '" alt="' + esc(loc(pr, 'name')) + '">' : esc(initials(pr.name_en || 'Dongjun Suh'))) + '</div>' +
       '<div><p class="muted" style="margin:0 0 4px">' + esc(t('professor')) + '</p><h2 id="prof-name">' + esc(loc(pr, 'name')) + '</h2>' +
-      '<p class="title">' + esc(loc(pr, 'title')) + '</p><p class="depts">' + depts.map(esc).join('<br>') + '<br>' + esc(loc(site, 'university')) + '</p>' +
+      '<p class="title">' + esc(loc(pr, 'title')) + '</p><p class="depts">' + depts.map(function (d, i) {
+        var u = (pr.homepages || [])[i];  // homepages are listed in the same order as the departments
+        return u ? '<a href="' + esc(u) + '" target="_blank" rel="noopener">' + esc(d) + '</a>' : esc(d);
+      }).join('<br>') + '<br>' + esc(loc(site, 'university')) + '</p>' +
       '<dl class="contact-list">' +
       (pr.email ? '<div><dt>Email</dt><dd><a href="mailto:' + esc(pr.email) + '">' + esc(pr.email) + '</a></dd></div>' : '') +
       (pr.phone ? '<div><dt>Tel</dt><dd>' + esc(pr.phone) + '</dd></div>' : '') +
-      (pr.homepages && pr.homepages.length ? '<div class="wide"><dt>Homepage</dt><dd>' + pr.homepages.map(function (u) { return '<a href="' + esc(u) + '" target="_blank" rel="noopener">' + esc(u.replace(/^https?:\/\//, '').replace(/\/$/, '')) + '</a>'; }).join('<br>') + '</dd></div>' : '') +
       (loc(pr, 'office') ? '<div class="wide"><dt>Office</dt><dd>' + esc(loc(pr, 'office')).replace(/\n/g, '<br>') + '</dd></div>' : '') +
       '</dl>' + (links.length ? '<div class="actions" style="margin-bottom:20px">' + links.join('') + '</div>' : '') +
       '<div class="bio"><h3 class="sub-h" style="margin-top:8px">' + esc(t('bio')) + '</h3>' + richText(loc(pr, 'bio')) + '</div>' +

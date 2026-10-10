@@ -191,7 +191,7 @@ content:
       - { name: departments_ko, label: "소속 학과 (한글)", type: string, list: true }
       - { name: email, label: "이메일", type: string }
       - { name: phone, label: "전화", type: string }
-      - { name: homepages, label: "홈페이지 주소 (여러 개 가능)", type: string, list: true }
+      - { name: homepages, label: "소속별 홈페이지 주소", type: string, list: true, description: "위 소속 학과와 같은 순서로 입력하면 사진 옆 소속 이름에 링크가 걸립니다" }
       - { name: office_en, label: "연구실 위치 (영문, 여러 줄 가능)", type: text }
       - { name: office_ko, label: "연구실 위치 (한글, 여러 줄 가능)", type: text }
       - { name: photo, label: "사진", type: image }

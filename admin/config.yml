@@ -390,7 +390,7 @@ collections:
       widget: string
       required: false
     - name: homepages
-      label: 홈페이지 주소 (여러 개 가능)
+      label: 소속별 홈페이지 주소 (위 소속 학과와 같은 순서)
       widget: list
       field:
         name: item

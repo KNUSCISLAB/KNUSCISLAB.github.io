@@ -65,6 +65,8 @@ button { font: inherit; }
 .bar.no-knu .brand .knu { display: none; }
 @media (max-width: 460px) { .brand .knu { display: none; } }
 .contact-list .wide { grid-column: 1 / -1; }
+.prof .depts a { color: inherit; text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 3px; }
+.prof .depts a:hover { color: var(--accent); text-decoration-color: var(--accent); }
 .bio .rich-h { font-size: 1.02rem; font-weight: 600; margin: 22px 0 6px; }
 .bio .rich-list { margin: 8px 0 14px; padding-left: 1.2em; list-style: disc; }
 .bio .rich-list li { margin: 0 0 8px; }
