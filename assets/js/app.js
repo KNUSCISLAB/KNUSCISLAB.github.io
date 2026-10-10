@@ -185,7 +185,7 @@
       '<div><strong>' + esc(loc(site, 'name') || 'Smart Control & Intelligent Systems Lab') + '</strong><p>' + esc(loc(site, 'address')) + '</p></div>' +
       '<div><strong>' + esc(t('contact')) + '</strong><p>' + contact.join('<br>') + '</p></div>' +
       '<div><strong>' + esc(t('elsewhere')) + '</strong><p>' + links.join('<br>') + '</p></div>' +
-      '</div><p class="fine">© ' + new Date().getFullYear() + ' ' + esc(loc(site, 'name') || 'SCIS Lab') + ', ' + esc(loc(site, 'university')) + updated + '. ' + esc(t('privacy')) + '</p></div>');
+      '</div><p class="fine">© ' + new Date().getFullYear() + ' ' + esc(loc(site, 'name') || 'SCIS Lab') + ', ' + esc(loc(site, 'university')) + updated + '</p></div>');
   }
 
   function errorNote() {
