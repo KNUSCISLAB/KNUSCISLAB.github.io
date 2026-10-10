@@ -18,8 +18,8 @@
   "email": "dongjunsuh@knu.ac.kr",
   "phone": "+82-54-530-1482",
   "fax": "+82-54-530-1489",
-  "address_en": "Office 411, Building No. 9, Kyungpook National University, 2559 Gyeongsang-daero, Sangju-si, Gyeongsangbuk-do 37224, Republic of Korea\nGlobal Plaza 1311, Kyungpook National University, 80 Daehak-ro, Buk-gu, Daegu 41566, Republic of Korea",
-  "address_ko": "경상북도 상주시 경상대로 2559 경북대학교 과학기술대학 9호관 411호\n대구광역시 북구 대학로 80 경북대학교 글로벌플라자 1311호",
+  "address_en": "Office 411 (Professor), 401 and 407 (Lab), Building No. 9, Kyungpook National University, 2559 Gyeongsang-daero, Sangju-si, Gyeongsangbuk-do 37224, Republic of Korea\nGlobal Plaza 1311, Kyungpook National University, 80 Daehak-ro, Buk-gu, Daegu 41566, Republic of Korea",
+  "address_ko": "경상북도 상주시 경상대로 2559 경북대학교 과학기술대학 9호관 411호(교수실), 401·407호(연구실)\n대구광역시 북구 대학로 80 경북대학교 글로벌플라자 1311호",
   "github_url": "https://github.com/KNUSCISLAB",
   "scholar_url": "",
   "logo": "assets/img/logo.png"
