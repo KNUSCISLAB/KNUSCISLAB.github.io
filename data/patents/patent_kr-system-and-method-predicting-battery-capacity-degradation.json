@@ -1,6 +1,6 @@
 {
   "kind": "patent_kr",
-  "order": 0,
+  "order": null,
   "country": "KR",
   "title_en": "SYSTEM AND METHOD PREDICTING BATTERY CAPACITY DEGRADATION",
   "title_ko": "배터리 용량 열화 예측 시스템 및 방법",
